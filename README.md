@@ -2,7 +2,7 @@
 
 > 淘宝/天猫电商运营 Agent Skills —— 把一套 2013 页的电商运营知识库编译成 agent 可执行的技能。
 
-[![skills](https://img.shields.io/badge/skills-18-blue)](skills/)
+[![skills](https://img.shields.io/badge/skills-19-blue)](skills/)
 [![layer](https://img.shields.io/badge/layer-L0%E2%86%92L3-green)](docs/ROADMAP.md)
 [![source](https://img.shields.io/badge/source-taobao--operation-orange)](docs/SOURCE-NOTES.md)
 
@@ -51,6 +51,7 @@ npx skills add https://github.com/kizemo/skill-ecommercial
 | [`hit-product-lifecycle`](skills/hit-product-lifecycle/) | 爆款全生命周期：四阶段、LQ/BQ/CQ、叠标体系 |
 | [`customer-asset-ops`](skills/customer-asset-ops/) | 人群资产运营：AIPL/O-AIPL/RFM、召回与复购 |
 | [`profit-model`](skills/profit-model/) | 盈利体系与算账：盈亏平衡 ROI、斩杀线、顺逆差、投产去伪 |
+| [`daily-store-patrol`](skills/daily-store-patrol/) | **每日巡店（数据驱动）**：连 PG 库逐日体检全店 —— 红绿灯表、异动规则库、重点商品/计划名单、**可直接跑的巡店脚本** |
 
 ### L2 · 域层（单业务域专项）
 
@@ -73,7 +74,7 @@ npx skills add https://github.com/kizemo/skill-ecommercial
 | [`trend-keyword-launch`](skills/trend-keyword-launch/) | 趋势词开款引擎：10 步开款流程、词语 7 分类、词包分层、SAB 分级、表格化输出 |
 | [`review-insight-mining`](skills/review-insight-mining/) | 评价挖掘与需求洞察：12 Prompt 链、评价 5 分级、需求地图、冲突点挖掘 |
 
-> 四层共 **18 个** skill，全部已制作并通过质量门禁。完整规划见 [`docs/ROADMAP.md`](docs/ROADMAP.md)。
+> 四层共 **19 个** skill，全部已制作并通过质量门禁。完整规划见 [`docs/ROADMAP.md`](docs/ROADMAP.md)。
 
 ## 每个 skill 的结构
 

@@ -2,7 +2,8 @@
 
 > 来源知识库：`taobao-operation`（Obsidian，2112 篇 Markdown / 49MB / 10 大业务模块）
 > 语料入库：GBRain host brain，source `taobao-operation`，2013 页 / 24077 chunks / 链接图谱已抽取
-> 规划日期：2026-10-24　｜　**状态：18 个 skill 全部制作完成，质量门禁 0 error / 0 warn**
+> 数据侧增量：本机 PostgreSQL（`taobao` 库店铺侧 + `erp` 库交易成本侧），7 个淘宝店铺实测
+> 规划日期：2026-10-24　｜　**状态：19 个 skill 全部制作完成，质量门禁 0 error / 0 warn**
 
 ---
 
@@ -22,9 +23,10 @@
 L0 总纲层  taobao-ops-playbook
    │  回答：我在哪一步 / 该用哪个 skill / 全链路公式是什么
    ▼
-L1 体系层  6 个跨模块、可独立运行的核心方法论体系
+L1 体系层  7 个跨模块、可独立运行的核心方法论体系
    │  sabc-product-tiering · store-diagnosis · wanxiangtai-wujie
    │  hit-product-lifecycle · customer-asset-ops · profit-model
+   │  daily-store-patrol
    ▼
 L2 域层    9 个单业务域专项
    │  selection-testing · keyword-promo · conversion-optimization
@@ -37,6 +39,8 @@ L3 工具层  2 个可直接跑的技能包
 
 **依赖关系**：L0 引用全部；L1 内部互引（如 store-diagnosis 的结论落到 sabc-product-tiering 调级、wanxiangtai-wujie 的计划落到 profit-model 算账）；L2 引用 L1，不反向依赖；L3 独立可跑。
 
+**数据侧 skill**：`daily-store-patrol` 是唯一直接连生产数据库的 skill —— 它把 PG 里的 ERP 每日订单/成本/推广费用 与 店铺侧流量/客户资产/万相台推广 落成一条每日巡店流水线，含可运行脚本。
+
 ---
 
 ## 三、Skill 清单
@@ -47,7 +51,7 @@ L3 工具层  2 个可直接跑的技能包
 |---|---|---|
 | `taobao-ops-playbook` | 淘宝运营全链路导航与总纲 | 10 大模块地图、15 条核心公式、四大金刚指标、店铺生命周期四阶段、选路决策树、全部 skill 索引 |
 
-### L1 — 体系层（6 个）
+### L1 — 体系层（7 个）
 
 | Skill | 用途 | 核心交付 |
 |---|---|---|
@@ -57,6 +61,7 @@ L3 工具层  2 个可直接跑的技能包
 | `hit-product-lifecycle` | 爆款全生命周期 | 四阶段与时间轴、LQ/BQ/CQ 三公式、叠标体系与权重表、爆款三型、阶段切换判据 |
 | `customer-asset-ops` | 人群资产运营 | AIPL/O-AIPL/RFM、生命周期五阶段、四类人群与策略、预算决定流量圈层、人群校正五方法、召回与留存 |
 | `profit-model` | 盈利体系与算账 | 3384 利润公式、盈亏平衡 ROI、斩杀线、顺逆差、真实投产去伪、利润/引流/形象款毛利率分工 |
+| `daily-store-patrol` | **每日巡店（数据驱动）** | **每日六步流水线**（数据新鲜度→大盘红绿灯→流量结构→客户资产→推广体检→商品巡检→行动清单）、异动规则库 28 条、重点商品/计划/人群筛选算法、**可运行脚本**、PG 三个数据源字段地图与 6 个已踩的坑 |
 
 ### L2 — 域层（9 个）
 
@@ -88,6 +93,7 @@ L3 工具层  2 个可直接跑的技能包
 | **批次 1** | `taobao-ops-playbook`(L0) + 6 个 L1 | 先立总纲与主干体系，后续所有域层 skill 都能挂靠 | ✅ 7/7 完成 |
 | **批次 2** | 9 个 L2 | 域层展开，引用 L1 结论 | ✅ 9/9 完成 |
 | **批次 3** | 2 个 L3 + 质量校验 | 工具包独立交付 + 全库 lint/一致性检查 | ✅ 2/2 完成，门禁 0 error / 0 warn |
+| **批次 4** | `daily-store-patrol`(L1，数据侧增量) | 把 PG 里的 ERP 每日订单/成本/推广费用 + 店铺侧流量/客户资产/万相台推广 落成每日巡店流水线 | ✅ 1/1 完成，脚本对 7 店实测跑通 |
 
 **制作方式**：L0、L3 与 L2 中的 `selection-testing` / `trend-keyword-launch` / `review-insight-mining` 由主线统一产出以保证样板质量；其余 L1/L2 批量部分并行产出，每个 worker 独占自己的 skill 目录，互不交叉写入。
 
