@@ -1,0 +1,48 @@
+name: validate-skills
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Validate skill structure and quality gates
+        run: python scripts/validate_skills.py --root .
+
+      - name: Check for placeholders in committed files
+        run: |
+          if grep -rInE 'TODO|FIXME|待补充|lorem ipsum' --include='*.md' skills/ ; then
+            echo "::error::placeholder markers found in skills/"
+            exit 1
+          fi
+          echo "no placeholder markers"
+
+      - name: Frontmatter name matches directory name
+        run: |
+          python - <<'PY'
+          import re, sys
+          from pathlib import Path
+          bad = []
+          for skill_md in sorted(Path("skills").glob("*/SKILL.md")):
+              raw = skill_md.read_text(encoding="utf-8")
+              m = re.match(r"\A---\r?\n(.*?)\r?\n---", raw, re.S)
+              if not m:
+                  bad.append(f"{skill_md}: missing frontmatter")
+                  continue
+              nm = re.search(r"^name:\s*(.+)$", m.group(1), re.M)
+              if not nm or nm.group(1).strip() != skill_md.parent.name:
+                  bad.append(f"{skill_md}: name != directory")
+          if bad:
+              print("\n".join(bad)); sys.exit(1)
+          print("frontmatter ok")
+          PY

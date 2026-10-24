@@ -1,0 +1,142 @@
+# 电商运营 Skills 框架规划
+
+> 来源知识库：`taobao-operation`（Obsidian，2112 篇 Markdown / 49MB / 10 大业务模块）
+> 语料入库：GBRain host brain，source `taobao-operation`，2013 页 / 24077 chunks / 链接图谱已抽取
+> 规划日期：2026-10-24　｜　**状态：18 个 skill 全部制作完成，质量门禁 0 error / 0 warn**
+
+---
+
+## 一、设计原则
+
+1. **提取结构，不做摘要** —— 每个 skill 交付的是"框架 + 步骤 + 阈值 + 误区"，不是知识复述。
+2. **保留原始专名** —— 「汉堡包计划」「尖刀连」「3384 利润公式」「多品多域」「领先率」「红绿灯监控法」这类命名本身就是行业语言，不意译。
+3. **分层深度** —— SKILL.md 只放决策必需的核心框架（< 4000 tokens），细节进 `chapters/`，按需加载。
+4. **可执行优先** —— 每个 skill 必须能落到"今天打开哪个后台、改哪个参数、看到什么数就停"。
+5. **诊断先于动作** —— 运营的多数错误不是不会做，而是做错了对象。所以诊断类 skill 优先级高于执行类。
+
+---
+
+## 二、四层架构
+
+```
+L0 总纲层  taobao-ops-playbook
+   │  回答：我在哪一步 / 该用哪个 skill / 全链路公式是什么
+   ▼
+L1 体系层  6 个跨模块、可独立运行的核心方法论体系
+   │  sabc-product-tiering · store-diagnosis · wanxiangtai-wujie
+   │  hit-product-lifecycle · customer-asset-ops · profit-model
+   ▼
+L2 域层    9 个单业务域专项
+   │  selection-testing · keyword-promo · conversion-optimization
+   │  pricing-margin · campaign-playbook · data-metrics
+   │  visual-material · toolchain-ai · compliance-medical
+   ▼
+L3 工具层  2 个可直接跑的技能包
+      trend-keyword-launch · review-insight-mining
+```
+
+**依赖关系**：L0 引用全部；L1 内部互引（如 store-diagnosis 的结论落到 sabc-product-tiering 调级、wanxiangtai-wujie 的计划落到 profit-model 算账）；L2 引用 L1，不反向依赖；L3 独立可跑。
+
+---
+
+## 三、Skill 清单
+
+### L0 — 总纲层（1 个）
+
+| Skill | 用途 | 核心交付 |
+|---|---|---|
+| `taobao-ops-playbook` | 淘宝运营全链路导航与总纲 | 10 大模块地图、15 条核心公式、四大金刚指标、店铺生命周期四阶段、选路决策树、全部 skill 索引 |
+
+### L1 — 体系层（6 个）
+
+| Skill | 用途 | 核心交付 |
+|---|---|---|
+| `sabc-product-tiering` | 货盘分级与资源分配 | S/A/B/C 判定标准与预算比例、金字塔结构、五步实施法、动态迭代频率、常见误区、类目/规模差异 |
+| `store-diagnosis` | 店铺经营诊断 | 领先率四档阈值、四层分析法（报表→商品→单品→定向）、归因切换法、直接/间接成交比判据、日周节奏、定向速查 |
+| `wanxiangtai-wujie` | 万相台无界全域投放 | 成交机会公式、成交规模公式、多品多域、OAIPL 四段、P1-P4 方法论、7 类计划分工、红绿灯调预算 |
+| `hit-product-lifecycle` | 爆款全生命周期 | 四阶段与时间轴、LQ/BQ/CQ 三公式、叠标体系与权重表、爆款三型、阶段切换判据 |
+| `customer-asset-ops` | 人群资产运营 | AIPL/O-AIPL/RFM、生命周期五阶段、四类人群与策略、预算决定流量圈层、人群校正五方法、召回与留存 |
+| `profit-model` | 盈利体系与算账 | 3384 利润公式、盈亏平衡 ROI、斩杀线、顺逆差、真实投产去伪、利润/引流/形象款毛利率分工 |
+
+### L2 — 域层（9 个）
+
+| Skill | 用途 | 核心交付 |
+|---|---|---|
+| `selection-testing` | 选品与测款 | 七维选品、五大选款法、虚假爆款识别、选→测→打→手流程、测图判据、新品打款时间线 |
+| `keyword-promo` | 关键词/搜索推广 | 十三式战法、大词/精准词/长尾词分层、测图 SOP、搜索卡位、竞品截流、品牌攻防 |
+| `conversion-optimization` | 转化与客单 | 消费者决策链路优先级、SKU 五要素、FABE 主图、买家秀五法、客单提升路径 |
+| `pricing-margin` | 定价与费比 | 科学定价、定价预留空间公式、最低价管控规则、高利润定价策略、费比核算 |
+| `campaign-playbook` | 大促与活动作战 | 六大 S 级大促节奏、活动报名四要点、蓄水策略、付费节奏、价盘管控、大促预算特殊策略 |
+| `data-metrics` | 数据指标体系 | 四大金刚、GSV 口径、新增高权重维度、8 维度考核、MTD 费比、建模路线（小/大建模/向量召回） |
+| `visual-material` | 视觉与素材 | 素材革命八大入口、每周素材 SOP、收推素材、主图裂变与 3C 化礼赠化升级、AI 主图四法 |
+| `toolchain-ai` | 工具链与 AI 提效 | 千牛 AI/生意管家**三层架构**、1 店长+6 数字员工、官方七大 agent 能力与更新日志、AI 巡店五维与风险分级、词根波士顿矩阵、素材诊断、转化漏斗、报告四重对比、智能体搭建五步、多 Agent 知识库配置 |
+| `compliance-medical` | 医疗器械合规红线 | 资质三类分级、禁用词 5 组 50+、标签强制标注 7 项、处罚 4 级、5 个真实案例、每周巡检 5 步 SOP |
+
+### L3 — 工具层（2 个）
+
+| Skill | 用途 | 核心交付 |
+|---|---|---|
+| `trend-keyword-launch` | 趋势词开款引擎 | 10 步开款流程、词语 7 分类、词包分层（核心/扩展/长尾 + 拉新/收割标注）、人群匹配、SAB 分级、表格化输出 |
+| `review-insight-mining` | 评价挖掘与需求洞察 | 6 模块 12 Prompt 链、评价 5 分级、需求地图/爆款方向/电商策略三产出、冲突点挖掘、上下文隔离执行法 |
+
+---
+
+## 四、制作顺序与批次
+
+| 批次 | 内容 | 理由 | 状态 |
+|---|---|---|---|
+| **批次 1** | `taobao-ops-playbook`(L0) + 6 个 L1 | 先立总纲与主干体系，后续所有域层 skill 都能挂靠 | ✅ 7/7 完成 |
+| **批次 2** | 9 个 L2 | 域层展开，引用 L1 结论 | ✅ 9/9 完成 |
+| **批次 3** | 2 个 L3 + 质量校验 | 工具包独立交付 + 全库 lint/一致性检查 | ✅ 2/2 完成，门禁 0 error / 0 warn |
+
+**制作方式**：L0、L3 与 L2 中的 `selection-testing` / `trend-keyword-launch` / `review-insight-mining` 由主线统一产出以保证样板质量；其余 L1/L2 批量部分并行产出，每个 worker 独占自己的 skill 目录，互不交叉写入。
+
+每个 skill 统一结构：
+
+```
+skills/<skill-name>/
+├── SKILL.md        核心框架 + 章节索引 + 主题索引 + 使用说明
+├── chapters/       分主题深读文档（按需加载）
+├── glossary.md     术语表（每条标注出处）
+├── patterns.md     可复用方法与套路（何时用 / 怎么做 / 代价）
+└── cheatsheet.md   决策速查（阈值表 / 决策树 / 判据 / 口径陷阱）
+```
+
+---
+
+## 五、质量门禁
+
+**约定**：
+
+- SKILL.md 正文 < 4000 tokens（前置压缩风险：上下文压缩从尾部截断，最重要的放最前）
+- 每个 skill 至少 1 张 cheatsheet.md，且必须是**决策规则**而非术语罗列
+- 所有数字必须来自知识库原文，**不得凭空补全**；无法验证的标注「未验证」
+- 保留专名原样，不意译
+- 交叉引用用 `[[skill-name]]` 相对链接
+
+**自动化校验**：`scripts/validate_skills.py`（CI 见 `.github/workflows/validate-skills.yml`）
+
+```bash
+python scripts/validate_skills.py --root .
+```
+
+检查项：目录结构完整性 → frontmatter 合法性与 `name`/目录名一致 → description 单行且足够触发 → SKILL.md token 预算 → 占位符残留 → 章节非空 → cheatsheet 决策性（决策标记 + 表格）→ glossary 条目数与来源标注 → patterns 的「何时用/代价」格式 → 交叉引用指向真实存在的 skill。
+
+退出码：`0` = 全部通过，`1` = 有 ERROR，`2` = 用法错误。
+
+**当前状态**：18 个 skill —— **0 error / 0 warn**。
+
+---
+
+## 六、知识库覆盖与缺口
+
+**已覆盖**（按笔记数）：30-流量与推广（139）、95-团队与方法论（233）、10-战略（27）、20-选品（32）、70-数据（19）、50-客户（13）、80-工具（12）、60-活动（11）、90-合规（10）、40-转化（4，最稀疏）
+
+**已知缺口**（本轮未 skill 化，后续可补）：
+
+1. `40-转化与客单` 仅 4 篇 —— 转化层是薄弱环节，`conversion-optimization` 内容相对单薄
+2. 618/双11/新店启动 三个项目目录均为 Phase 4 stub，`campaign-playbook` 主要依赖活动体系与实战提炼，反馈闭环缺失
+3. 医疗器械四品类（医疗器械电商/家用/中医器械/医用敷料）均为概念 stub，`compliance-medical` 的类目打法部分待补
+4. 关键词十三式后 8 式细节未完整提取，`keyword-promo` 目前覆盖前 5 式 + 品牌词
+5. `尖刀连` 讲义原稿在库内仅存断链，权重四维度内容依赖二手引用，**标记未验证**
+6. 70-数据与诊断中 8 维度考核体系来自三阶引擎，与平台官方口径可能存在偏差，需复核
