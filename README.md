@@ -17,21 +17,48 @@
 ## 快速开始
 
 ```bash
-# 在任意支持 Agent Skills 的宿主上安装
-npx skills add https://github.com/kizemo/skill-ecommercial
+# 方式 1：通用（任意支持 Agent Skills 的宿主）—— 已实测，--list 能正确识别出 19 本
+npx skills add https://github.com/kizemo/skill-ecommercial --list    # 先看有哪些，不装
+npx skills add https://github.com/kizemo/skill-ecommercial -g -a '*' -s '*' -y --copy
+#                 ↑ -g 全局   ↑ 装给所有 agent  ↑ 全部技能        ↑ Windows 普通权限请加 --copy
+```
+
+```bash
+# 方式 2：仓库自带安装脚本（自动识别本机 Claude Code / MiniMax Code 路径）
+git clone https://github.com/kizemo/skill-ecommercial.git
+cd skill-ecommercial
+python scripts/install_skills.py --list-hosts   # 先看装哪里
+python scripts/install_skills.py --host claude  # 或 --host minimax
+```
+
+```
+# 方式 3：Claude Code 插件市场（必须用 Git 方式，URL 直链会导致相对路径不解析）
+/plugin marketplace add kizemo/skill-ecommercial
+/plugin install skill-ecommercial@skill-ecommercial
 ```
 
 或直接克隆后按宿主规则放入技能目录：
 
 | 宿主 | 个人级目录 | 项目级目录 |
 |---|---|---|
-| Claude Code | `~/.claude/skills/` | `.claude/skills/` |
+| Claude Code / cc-haha | `~/.claude/skills/` | `.claude/skills/` |
+| MiniMax Code | `~/.minimax/.minimax/skills/` | — |
 | Codex | `~/.agents/skills/` | `.agents/skills/` |
 | OpenCode | `~/.agents/skills/` | `.agents/skills/` |
 | Copilot CLI | `~/.agents/skills/` | `.github/skills/` |
 | OpenClaw | `${OPENCLAW_STATE_DIR:-~/.openclaw}/skills/` | `skills/` |
 
 `skills/taobao-ops-playbook/` 是总纲入口，**建议第一个装**。
+**不确定该用哪本技能时，先 `/taobao-ops-playbook` 走路由。**
+
+> 完整说明（装到哪、怎么装、怎么调用、常见问题）见 **[docs/安装指南.md](docs/安装指南.md)**。
+
+<details>
+<summary>想要一份"给谁用、什么时候用"的非技术说明</summary>
+
+- [`docs/使用说明书.md`](docs/使用说明书.md) —— **面向使用者的完整说明书**（分工 / 调用方式 / 症状速查）
+- [`docs/技能地图.html`](docs/技能地图.html) —— 可视化技能地图（浏览器打开）
+</details>
 
 ## 技能清单
 
@@ -105,6 +132,7 @@ skills/<skill-name>/
 
 ## 规划与边界
 
+- [`docs/安装指南.md`](docs/安装指南.md) —— **装到哪、怎么装、怎么调用**：各宿主目录、4 种安装方式、路由与斜杠命令、常见问题
 - [`docs/使用说明书.md`](docs/使用说明书.md) —— **面向使用者的完整说明书**（分工 / 调用方式 / 症状速查），配套可视化页 [`docs/技能地图.html`](docs/技能地图.html)
 - [`docs/ROADMAP.md`](docs/ROADMAP.md) —— 四层架构、19 个 skill 的完整规划、制作批次、质量门禁、已知缺口
 - **只覆盖淘系**（淘宝/天猫）。京东 / 拼多多 / 抖音的对应方法论在知识库中另有笔记，本轮未 skill 化

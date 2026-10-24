@@ -1,0 +1,21 @@
+{
+  "name": "skill-ecommercial",
+  "version": "1.0.0",
+  "description": "淘宝/天猫电商运营 Agent Skills —— 19 本手册，分 L0 总纲 / L1 体系层 / L2 域层 / L3 工具层。含每日巡店（直连 PostgreSQL 的可运行巡店脚本）。",
+  "author": {
+    "name": "kizemo"
+  },
+  "homepage": "https://github.com/kizemo/skill-ecommercial",
+  "repository": "https://github.com/kizemo/skill-ecommercial",
+  "license": "MIT",
+  "skills": [
+    "./skills"
+  ],
+  "keywords": [
+    "taobao",
+    "ecommerce",
+    "operations",
+    "skill",
+    "daily-patrol"
+  ]
+}
