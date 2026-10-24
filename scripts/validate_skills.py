@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
 """skill-ecommercial 质量门禁。
 
-检查每个 skill 是否满足仓库约定：
+检查每个 skill 是否满足仓库约定（10 个维度）：
   1. 目录结构完整（SKILL.md + chapters/ + glossary.md + patterns.md + cheatsheet.md）
   2. frontmatter 合法，且 name 与目录名一致
-  3. description 是单行字符串且包含用途与触发线索
-  4. SKILL.md 正文体量在预算内（默认 4000 tokens）
-  5. 无占位符残留（TODO / TBD / 待补充 / FIXME / lorem）
-  6. 交叉引用的 skill 名都真实存在
-  7. cheatsheet.md 必须是决策内容，不能是空壳
+  3. description 是单行字符串且足够触发
+  4. SKILL.md 正文体量在预算内（默认 4000 tokens，且不能是空壳）
+  5. chapters/ 非空，章节内容不过少、不过大
+  6. cheatsheet.md 必须是决策内容，不能是空壳（要含决策标记 + 表格）
+  7. glossary.md 条目数足够且逐条标注来源
+  8. patterns.md 至少 3 条含「何时用」的方法，并标注代价/风险
+  9. 无占位符残留（TODO / TBD / 待补充 / FIXME / lorem）
+ 10. 交叉引用的 skill 名都真实存在
 
 退出码：0 = 全部通过；1 = 有 ERROR；2 = 用法错误。
 """
