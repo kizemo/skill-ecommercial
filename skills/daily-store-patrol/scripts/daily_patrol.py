@@ -108,6 +108,50 @@ def pct(a, b):
     return fa / fb * 100
 
 
+PLAN_KIND_ORDER = {"宝贝/货品": 0, "关键词": 1, "人群": 2}
+
+
+def merge_plans(items):
+    """按计划名归并万相台记录。
+
+    同一个计划会同时落在宝贝/货品、关键词、人群三张表里（同一计划在不同维度的滚算，
+    实测同一计划的花费与投产一致、新客数差 1 以内）。不归并会在行动清单里把同一个
+    计划列成多个可加投对象，并让同一笔花费被当成多笔。
+    归并规则：维度标签合并成「宝贝/货品+关键词」；花费/比率/计数一律取**最大值**
+    （不累加同一笔钱，避免虚增）；结论按严重度排序去重。
+    """
+    merged = {}
+    for it in items:
+        plan = (it.get("plan") or "").strip()
+        if not plan:
+            continue
+        slot = merged.setdefault(plan, {"plan": plan, "kinds": set(), "cost": 0.0,
+                                        "metric": None, "extra": None, "pieces": []})
+        slot["kinds"].add(it.get("kind") or "")
+        cost = num(it.get("cost")) or 0.0
+        if cost > slot["cost"]:
+            slot["cost"] = cost
+        for key in ("metric", "extra"):
+            v = it.get(key)
+            if isinstance(v, (int, float)) and (slot[key] is None or v > slot[key]):
+                slot[key] = v
+        for piece in (it.get("text") or "").split("；"):
+            piece = piece.strip()
+            if piece and piece != "—" and piece not in slot["pieces"]:
+                slot["pieces"].append(piece)
+
+    def sev(p):
+        return 0 if p.startswith("🔴") else 1 if p.startswith("🟡") else 2
+
+    out = []
+    for slot in merged.values():
+        kinds = sorted(slot["kinds"], key=lambda k: PLAN_KIND_ORDER.get(k, 99))
+        out.append({"plan": slot["plan"], "kind": "+".join(kinds), "cost": slot["cost"],
+                    "metric": slot["metric"], "extra": slot["extra"],
+                    "text": "；".join(sorted(slot["pieces"], key=sev))})
+    return out
+
+
 def q(cur, sql, args=None):
     """执行查询；出错时回滚并返回 [('__error__', msg)]，不中断整体巡店。"""
     try:
@@ -161,6 +205,16 @@ def to_pct(v, unit):
     return f if unit == "pct" else f * 100
 
 
+def with_unit(label, v):
+    """按指标名补上单位后缀：比率型指标带 %，其余原样。
+
+    汇总表与行动清单复用 lights 时必须带单位，否则「支付转化率 1.53」会被
+    误读成小数，而大盘表里同一指标写的是「1.53%」。
+    """
+    s = fmt(v)
+    return f"{s}%" if label in RATE_FIELDS and s != "—" else s
+
+
 def light(cur_v, base_v, direction):
     """三色判定（对比自身 7 日均值）。
 
@@ -200,6 +254,9 @@ def report_shop(sfx: str, want_date):
     erp = conn("erp")
     tcur, ecur = tao.cursor(), erp.cursor()
     schema = f"shop_{sfx}"
+    traffic_rows = None
+    asset = None
+    asset_hist = None
 
     shop_name = sfx
     r = q(tcur, f'select distinct "店铺名称" from "{schema}"."core_daily_2026"')
@@ -318,7 +375,8 @@ def report_shop(sfx: str, want_date):
     lines.append(f"| 推广费比 | 四项推广花费合计 ÷ 支付金额 | {fmt(pct(ad, paid))}% | "
                  "费比高说明利润薄；**先验投产真伪再谈加不加预算**（`profit-model`） |")
     lines.append(f"| 新客占比 | 支付新买家数 ÷ 支付买家数 | {fmt(pct(newb, buyers))}% | "
-                 "领先率代理指标；<50% 说明主要在跑收割（`store-diagnosis`） |")
+                 "⚠️ **人数口径**，7 店实测全部 ≥86%，判别力低；领先率要看第 3 节客户资产表的"
+                 "**金额口径**（`store-diagnosis`） |")
     lines.append(f"| 老客占比 | 支付老买家数 ÷ 支付买家数 | {fmt(pct(oldb, buyers))}% | "
                  "老客占比过高 = 拉新链路断了 |")
     lines.append(f"| 佣金占比 | 淘客佣金 ÷ 支付金额 | {fmt(pct(commission, paid))}% | "
@@ -336,6 +394,7 @@ def report_shop(sfx: str, want_date):
                             where stat_date=%s group by 1,2
                             order by 3 desc nulls last limit 36''', (d_target,))
         if rows and rows[0][0] != "__error__":
+            traffic_rows = rows
             lines.append("| 归属原则 | 二级来源 | 访客 | 支付金额 | 支付买家 | 转化率 | 加购人数 |")
             lines.append("|---|---|---|---|---|---|---|")
             for r in rows:
@@ -354,33 +413,80 @@ def report_shop(sfx: str, want_date):
     # ---------- 3. 客户资产 ----------
     if table_exists(tcur, schema, "customer_assets_2026"):
         hdr("## 3 · 客户资产（看厚度与健康）")
-        r = q(tcur, f'''select "用户数","未购买用户数","已购用户数","新访客户数","潜在客户数",
-                                "已购客户回访数","180天复购率","总粉丝数","活跃粉丝数","沉睡粉丝数",
-                                "机会粉丝数","成交新客占比","父订单数","复购父订单数"
-                         from "{schema}"."customer_assets_2026" where stat_date=%s''', (d_target,))
+        # 只查库里真实存在的列。`成交新客占比` / `入会率` / `引导访问量` 这类字段只存在于
+        # wxt_promotion_* 表，customer_assets_2026 里没有 —— 查了会让整个 SELECT 报错、
+        # 整段客户资产静默变空。
+        cols_a = ('"用户数","未购买用户数","已购用户数","新访客户数","潜在客户数",'
+                  '"已购客户回访数","180天复购率","总粉丝数","活跃粉丝数","沉睡粉丝数",'
+                  '"机会粉丝数","新访客&已购支付金额","未购买&购买支付金额","已购&回购支付金额",'
+                  '"新访客&已购用户数","未购买&购买用户数","已购&回购用户数",'
+                  '"潜在客户新访客户数","已购客户数","父订单数","复购父订单数"')
+        r = q(tcur, f'select {cols_a} from "{schema}"."customer_assets_2026" '
+                    f'where stat_date=%s', (d_target,))
         if r and r[0][0] != "__error__" and len(r[0]) > 1:
             v = r[0]
+            asset = v
             rp = num(v[6])
+            # 三段拆解：金额三项 / 人数三项（实测与 core_daily 的支付金额、支付买家数完全对齐）
+            amt_new, amt_pot, amt_rep = num(v[11]), num(v[12]), num(v[13])
+            cnt_new, cnt_pot, cnt_rep = num(v[14]), num(v[15]), num(v[16])
+            amt_sum = (amt_new or 0) + (amt_pot or 0) + (amt_rep or 0)
+            cnt_sum = (cnt_new or 0) + (cnt_pot or 0) + (cnt_rep or 0)
+            rate_amt = pct(amt_new, amt_sum) if amt_sum else None
+            rate_cnt = pct(cnt_new, cnt_sum) if cnt_sum else None
+            rate_newb = pct(newb, buyers)
+
             lines.append("| 指标 | 值 | 看什么 |")
             lines.append("|---|---|---|")
             for label, val_, note in (
-                ("用户总数", v[0], "池子大小"),
+                ("用户总数", v[0], "池子大小（当日口径）"),
                 ("新访客户数", v[3], "拉新入口的量"),
-                ("潜在客户数", v[4], "到过店但没成交的人"),
-                ("已购客户数", v[2], "存量买家"),
+                ("潜客中的新访客", v[17], "到过店还没成交的那部分新客"),
+                ("已购客户数（累计）", v[18], "⚠️ 累计口径，**不是**当日成交人数"),
+                ("潜在客户数", v[4], "⚠️ 平台级累计量，量级远大于本店主数据，"
+                                   "**不可与已购客户数做比值**"),
                 ("已购客户回访数", v[5], "回访有没有发生"),
                 ("180天复购率", f"{fmt(rp*100)}%" if rp is not None else "—", "复购健康度"),
                 ("总粉丝数", v[7], "私域池"),
                 ("活跃粉丝", v[8], "触达得到"),
                 ("沉睡粉丝", v[9], "召回对象"),
                 ("机会粉丝", v[10], "可激活"),
-                ("成交新客占比", f"{fmt(v[11])}%" if num(v[11]) is not None else "—", "与店铺新客占比互相印证"),
-                ("复购父订单占比", f"{fmt(pct(v[13], v[12]))}%", "复购强度"),
+                ("复购父订单占比", f"{fmt(pct(v[20], v[19]))}%", "复购强度"),
             ):
-                lines.append(f"| {label} | {fmt(val_)} | {note} |")
+                lines.append(f"| {label} | {val_ if isinstance(val_, str) else fmt(val_)} | {note} |")
             lines.append("")
-            lines.append("> 沉睡粉丝多 + 复购率低 = 今日排召回（`customer-asset-ops`）；"
-                         "潜在客户多而成交少 = 承接或人群包问题。")
+            lines.append("**成交拆解（新客 / 潜客首购 / 老客回购）**")
+            lines.append("")
+            lines.append("| 分段 | 人数 | 支付金额 |")
+            lines.append("|---|---|---|")
+            lines.append(f"| 新访客成交（新客） | {fmt(cnt_new,0)} | {fmt(amt_new)} |")
+            lines.append(f"| 潜客首购 | {fmt(cnt_pot,0)} | {fmt(amt_pot)} |")
+            lines.append(f"| 老客回购 | {fmt(cnt_rep,0)} | {fmt(amt_rep)} |")
+            lines.append(f"| **合计** | **{fmt(cnt_sum,0)}** | **{fmt(amt_sum)}** |")
+            lines.append(f"| core_daily 对照 | {fmt(buyers,0)} | {fmt(paid)} |")
+            lines.append("")
+            lines.append(f"- 新客成交金额占比（**金额口径领先率**）= **{fmt(rate_amt)}%**"
+                         f"（`新访客&已购支付金额` ÷ 金额合计）")
+            lines.append(f"- 严格新客人数占比 = {fmt(rate_cnt)}%"
+                         f"（`新访客&已购用户数` ÷ 人数合计）")
+            lines.append(f"- 大盘表新客占比（**人数口径**）= {fmt(rate_newb)}%"
+                         f"（`支付新买家数` ÷ `支付买家数`）")
+            lines.append("")
+            if (rate_amt is not None and rate_newb is not None
+                    and abs(rate_amt - rate_newb) > 15):
+                lines.append(f"> ⚠️ **口径冲突，需复核**：同一笔成交金额拆开看，新客只占 "
+                             f"{fmt(rate_amt)}%，而大盘表的人数口径是 {fmt(rate_newb)}%。"
+                             f"两者不是同一个指标 —— **别拿人数口径当领先率判拉新/收割**，"
+                             f"金额口径才是「新客成交 ÷ 总成交」（`store-diagnosis`）。")
+                lines.append("")
+            lines.append("> 沉睡粉丝 ≥ 活跃粉丝 = 私域未激活，今日排召回（`customer-asset-ops`）；"
+                         "180天复购率 < 3% = 复购是存量生意。")
+            # 自身 7 日基线（用于回访等相对判定；与大盘红绿灯同一套方法）
+            asset_hist = q(tcur, f'''select "沉睡粉丝数","活跃粉丝数","180天复购率","已购客户回访数"
+                                    from "{schema}"."customer_assets_2026"
+                                    where stat_date < %s and stat_date > %s
+                                    order by stat_date desc limit 7''',
+                           (d_target, d_target - timedelta(days=8)))
         else:
             lines.append(f"（{d_target} 无客户资产记录）")
 
@@ -389,6 +495,7 @@ def report_shop(sfx: str, want_date):
     lines.append("| 推广类型 | 计划 | 花费 | 直接成交 | 间接成交 | 投产 | 新客数 | 判读 |")
     lines.append("|---|---|---|---|---|---|---|---|")
     findings = []
+    winners = []
     for tbl, kind in (("wxt_promotion_baobei_2026", "宝贝/货品"),
                       ("wxt_promotion_keyword_2026", "关键词"),
                       ("wxt_promotion_audience_2026", "人群")):
@@ -427,13 +534,21 @@ def report_shop(sfx: str, want_date):
             lines.append(f"| {kind} | {plan} | {fmt(cost)} | {fmt(direct)} | {fmt(indirect)} | "
                          f"{fmt(roias)} | {fmt(newcust,0)} | {txt} |")
             if v and v[0].startswith("🔴"):
-                findings.append((kind, plan, cost, txt))
+                findings.append({"kind": kind, "plan": plan, "cost": cost, "text": txt})
+            if roias and roias >= 3 and newcust > 0 and cost and cost > 0:
+                winners.append({"kind": kind, "plan": plan, "cost": cost,
+                                "metric": roias, "extra": newcust})
+    findings = merge_plans(findings)
+    winners = merge_plans(winners)
     lines.append("")
     lines.append(f"> 万相台数据最新日期：{', '.join(sorted({str(latest_date(tcur, schema, t)) for t in ('wxt_promotion_baobei_2026','wxt_promotion_keyword_2026','wxt_promotion_audience_2026') if table_exists(tcur, schema, t)}))}"
                  "（比店铺日报滞后约 3 周，**不能当成昨日数据用**）")
     lines.append("> 投产比此处用（直接+间接）成交 ÷ 花费近似；平台自带 `投入产出比` 字段口径可能不同，"
                  "最终以平台字段为准。")
     lines.append("> 判读红线（知识库）：**间接成交 = 直接成交 2 倍 ⇒ 该品投放完全无效**。")
+    lines.append("> ⚠️ 同一个计划可能同时出现在宝贝/货品、关键词、人群三张表里（同一计划的不同维度"
+                 "滚算，花费与投产一致、新客数差 1 以内）。上表按原样列出便于对照，"
+                 "**下方行动清单与机会清单已按计划名归并，同一计划只算一次**。")
 
     # ---------- 5. 商品层巡检 ----------
     hdr("## 5 · 商品层巡检（ERP · 已剔除「补单」）")
@@ -506,7 +621,7 @@ def report_shop(sfx: str, want_date):
     for label, cv, bv, color, note, direction in lights:
         if direction == "none":
             continue
-        lines.append(f"| {label} | {fmt(cv)} | {fmt(bv)} | "
+        lines.append(f"| {label} | {with_unit(label, cv)} | {with_unit(label, bv)} | "
                      f"{'🟢 绿' if color=='绿' else '🟡 黄' if color=='黄' else '🔴 红'} |")
     lines.append("")
     lines.append("### 今日行动清单")
@@ -514,20 +629,123 @@ def report_shop(sfx: str, want_date):
     actions = []
     for label, cv, bv, color, note, direction in lights:
         if color == "红":
-            actions.append(f"🔴 **{label}** {fmt(cv)}（7日均值 {fmt(bv)}，{note}）→ 进专项诊断")
-    for kind, plan, cost, txt in findings[:8]:
-        actions.append(f"🔴 **推广计划 · {kind} · {plan}**（花费 {fmt(cost)}）→ {txt}")
+            actions.append(f"🔴 **{label}** {with_unit(label, cv)}"
+                           f"（7日均值 {with_unit(label, bv)}，{note}）→ 进专项诊断")
+    for f in findings[:8]:
+        actions.append(f"🔴 **推广计划 · {f['kind']} · {f['plan']}**（花费 {fmt(f['cost'])}）"
+                       f"→ {f['text']}")
     if not actions:
         actions.append("🟢 无红灯项：保持节奏，把精力转向机会项。")
     lines.extend(f"- {a}" for a in actions)
     lines.append("")
-    lines.append("### 机会项提示")
     lines.append("")
-    lines.append("- 费比低于 7 日均值且投产达标 → 回收预算、加投赢家（`wanxiangtai-wujie`）")
-    lines.append("- 某二级流量来源转化率显著高于店铺均值 → 该来源加预算（`keyword-promo`）")
-    lines.append("- 新客占比偏低 + 老客占比高 → 在跑收割，需开拉新计划（`customer-asset-ops`）")
-    lines.append("- 沉睡粉丝多 + 复购率低 → 今日排召回（`customer-asset-ops`）")
-    lines.append("- 复购率与老客金额占比双升 → 该品升 A 级承接（`sabc-product-tiering`）")
+    lines.append("### 机会项提示（由数据实算，非固定清单）")
+    lines.append("")
+    opps = []
+
+    # 机会 1 · 费比相对基线
+    base_ad = sum(base_avg(i) or 0 for i in (10, 11, 12, 13))
+    base_paid = base_avg(1)
+    base_feibi = pct(base_ad, base_paid)
+    cur_feibi = pct(ad, paid)
+    if base_feibi is not None and cur_feibi is not None:
+        if cur_feibi < base_feibi * 0.95:
+            opps.append(f"💰 **费比 {fmt(cur_feibi)}% 低于 7 日均值 {fmt(base_feibi)}%** "
+                        f"→ 有预算回收空间，可加投赢家（`wanxiangtai-wujie`）")
+        elif cur_feibi > base_feibi * 1.05:
+            opps.append(f"⚠️ 费比 {fmt(cur_feibi)}% 已高于 7 日均值 {fmt(base_feibi)}% —— "
+                        f"先验投产真伪再决定加不加（`profit-model`）")
+
+    # 机会 2 · 高效率流量来源（每一次访问来源口径）
+    if traffic_rows:
+        tot_uv = sum(num(r[2]) or 0 for r in traffic_rows
+                     if r[0] == "每一次访问来源")
+        tot_by = sum(num(r[4]) or 0 for r in traffic_rows
+                     if r[0] == "每一次访问来源")
+        shop_cvr = pct(tot_by, tot_uv)
+        if shop_cvr:
+            cand = []
+            for r in traffic_rows:
+                if r[0] != "每一次访问来源":
+                    continue
+                uv, by = num(r[2]), num(r[4])
+                if not uv or uv < 200 or not by:
+                    continue
+                cvr = pct(by, uv)
+                if cvr and cvr >= shop_cvr * 1.5:
+                    cand.append((r[1], uv, cvr, by))
+            cand.sort(key=lambda x: -x[2])
+            for src, uv, cvr, by in cand[:3]:
+                opps.append(f"📈 **「{src}」转化率 {fmt(cvr)}%**（店铺均值 {fmt(shop_cvr)}%，"
+                            f"访客 {fmt(uv,0)}）→ 被低估的来源，可加预算（`keyword-promo`）")
+
+    # 机会 3 · 收割信号（领先率四档 —— 用客户资产表的**金额口径**）
+    # 注意：core_daily 的 人数口径 新客占比在 7 家店里全部落在 86~91%，判别力接近零，
+    # 只能当"新客结构是否正常"的粗筛，真正的领先率判读看下面的金额口径。
+    nr = pct(newb, buyers)
+    if nr is not None and nr >= 80:
+        opps.append(f"✅ 大盘新客占比 {fmt(nr)}%（人数口径）达合格线 —— 但该口径在 7 店实测"
+                    f"普遍 ≥86%，**判别力低**，拉新/收割以金额口径为准（见下）")
+    if asset:
+        amt_new, amt_pot, amt_rep = num(asset[11]), num(asset[12]), num(asset[13])
+        cnt_new, cnt_pot, cnt_rep = num(asset[14]), num(asset[15]), num(asset[16])
+        amt_sum = (amt_new or 0) + (amt_pot or 0) + (amt_rep or 0)
+        rate_amt = pct(amt_new, amt_sum) if amt_sum else None
+        if rate_amt is not None:
+            if rate_amt >= 80:
+                opps.append(f"✅ **新客成交金额占比 {fmt(rate_amt)}%**（金额口径领先率，≥80%）"
+                            f"→ 拉新链路健康，保持（`store-diagnosis`）")
+            elif rate_amt >= 70:
+                opps.append(f"✅ **新客成交金额占比 {fmt(rate_amt)}%**（70-80%）→ "
+                            f"头部 KA 可接受区间，继续积累人群资产")
+            elif rate_amt >= 50:
+                opps.append(f"🟡 **新客成交金额占比 {fmt(rate_amt)}%**（50-70%）→ "
+                            f"资源浪费在收割，查定向与出价（`store-diagnosis`）")
+            else:
+                opps.append(f"🔴 **新客成交金额占比 {fmt(rate_amt)}%**（<50%）→ "
+                            f"主要在跑收割，需开拉新计划"
+                            f"（`customer-asset-ops` + `wanxiangtai-wujie`）")
+
+    # 机会 4 · 私域召回 / 回访 / 复购
+    if asset:
+        sleep_f = num(asset[9])
+        active_f = num(asset[8])
+        rp = num(asset[6])
+        visit = num(asset[5])
+        if sleep_f and active_f and sleep_f >= active_f * 2:
+            opps.append(f"💤 **沉睡粉丝 {fmt(sleep_f,0)} 是活跃粉丝 {fmt(active_f,0)} 的 "
+                        f"{fmt(sleep_f/active_f,1)} 倍** → 私域基本没唤醒，今日排召回"
+                        f"（`customer-asset-ops`）")
+        elif sleep_f and active_f and sleep_f >= active_f:
+            opps.append(f"💤 **沉睡粉丝 {fmt(sleep_f,0)} ≥ 活跃粉丝 {fmt(active_f,0)}**"
+                        f" → 私域未激活，今日排召回（`customer-asset-ops`）")
+        # 回访用**自身 7 日均值**做相对判定：回访数 ÷ 累计已购客户数在 7 家店里全部 <1%，
+        # 绝对阈值没有区分度。
+        if asset_hist and visit is not None:
+            hist = [num(x[3]) for x in asset_hist if x and num(x[3]) is not None]
+            if hist:
+                bv = sum(hist) / len(hist)
+                if bv and visit < bv * 0.7:
+                    opps.append(f"👣 **已购客户回访数 {fmt(visit,0)} 较 7 日均值 {fmt(bv,0)} "
+                                f"下降 {fmt((1-visit/bv)*100)}%** → 回访掉头，今日排触达"
+                                f"（`customer-asset-ops`）")
+        if rp is not None and rp < 0.03:
+            opps.append(f"🔁 **180天复购率仅 {fmt(rp*100)}%** → 复购是存量生意，"
+                        f"做老客运营（`customer-asset-ops`）")
+
+    # 机会 5 · 加投候选计划（已按计划名归并，同一计划只出现一次）
+    for w in sorted(winners, key=lambda x: -(x["metric"] or 0))[:3]:
+        opps.append(f"🚀 **加投候选 · {w['kind']} · {w['plan']}**（投产 {fmt(w['metric'])}、"
+                    f"新客 {fmt(w['extra'],0)}、花费 {fmt(w['cost'])}）→ 加预算，增幅 ≤50%"
+                    f"（`wanxiangtai-wujie`）")
+
+    if opps:
+        lines.extend(f"- {o}" for o in opps)
+    else:
+        lines.append("- （本次未识别到明确的增量信号；绿灯状态下以维持节奏为主）")
+    lines.append("")
+    lines.append("> 潜力品（ERP 商品编码 ↔ 万相台宝贝ID **两套编码未对齐**）需人工映射，"
+                 "本轮未自动识别 —— 见 `chapters/ch04-重点商品与计划筛选.md`。")
     lines.append("")
     lines.append("> **阈值口径**：红/黄/绿全部是**与自身 7 日均值**的相对判定，不含编造的绝对值；"
                  "绝对红线（体验分 4.6、PXI 70/60、大促退款率 5%、放量 ≤50% 等）来自知识库，"
