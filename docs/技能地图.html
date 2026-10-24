@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>电商运营技能库 · 技能地图</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#f7f5f0; --card:#ffffff; --line:#e9e3d6; --line-soft:#f0ece2;
+  --ink:#14171e; --ink2:#3a4256; --muted:#7c7a72;
+  --primary:#2f6f5e; --primary-soft:rgba(47,111,94,.08);
+  --warm:#c97b3f; --warm-soft:rgba(201,123,63,.10);
+  --rose:#b06367; --rose-soft:rgba(176,99,103,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--cream); color:var(--ink);
+  font-family:'Outfit','PingFang SC','Microsoft YaHei',sans-serif;
+  font-size:14.5px; line-height:1.6; -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(520px 320px at 88% -6%, rgba(201,123,63,.06), transparent 70%),
+    radial-gradient(480px 300px at 4% 102%, rgba(47,111,94,.05), transparent 70%);
+}
+.wrap{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:48px 24px 80px}
+
+/* ---------- hero ---------- */
+.hero{margin-bottom:44px}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:7px;font-size:11.5px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--primary);
+  background:var(--primary-soft);padding:5px 11px;border-radius:999px;margin-bottom:18px;
+}
+h1{
+  font-family:'DM Serif Display',serif;font-weight:400;font-size:34px;line-height:1.24;
+  letter-spacing:-.005em;margin-bottom:14px;
+}
+h1 em{font-style:normal;color:var(--primary)}
+.lede{font-size:15.5px;color:var(--ink2);max-width:62ch}
+.lede strong{color:var(--ink);font-weight:600}
+.meta{
+  display:flex;flex-wrap:wrap;gap:0;margin-top:26px;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+}
+.meta div{padding:13px 26px 13px 0;margin-right:26px;border-right:1px solid var(--line-soft)}
+.meta div:last-child{border-right:0;margin-right:0}
+.meta b{display:block;font-size:20px;font-weight:600;font-family:'JetBrains Mono',monospace;color:var(--primary)}
+.meta span{font-size:12px;color:var(--muted)}
+
+/* ---------- section ---------- */
+section{margin-top:52px}
+.sec-head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.sec-head svg{width:19px;height:19px;color:var(--primary);flex:none}
+h2{font-family:'DM Serif Display',serif;font-weight:400;font-size:23px;letter-spacing:-.004em}
+.sec-sub{color:var(--muted);font-size:13.5px;margin-bottom:20px;max-width:70ch}
+
+/* ---------- layer map ---------- */
+.layers{border:1px solid var(--line);border-radius:16px;background:var(--card);overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.layer{display:grid;grid-template-columns:168px 1fr;border-bottom:1px solid var(--line-soft)}
+.layer:last-child{border-bottom:0}
+.layer-meta{padding:16px 18px;background:var(--cream);border-right:1px solid var(--line-soft)}
+.layer-meta .tier{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--primary);font-weight:500}
+.layer-meta .cnt{font-size:12.5px;color:var(--muted);margin-top:3px}
+.layer-body{padding:16px 18px}
+.layer-body .role{font-weight:600;font-size:13.5px;margin-bottom:3px}
+.layer-body .role span{font-weight:400;color:var(--muted);font-size:12.5px}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}
+.chip{
+  font-size:12.5px;padding:5px 11px;border-radius:8px;
+  background:var(--primary-soft);color:var(--primary);border:1px solid rgba(47,111,94,.16);font-weight:500;
+}
+.chip.w{background:var(--warm-soft);color:var(--warm);border-color:rgba(201,123,63,.18)}
+.chip.r{background:var(--rose-soft);color:var(--rose);border-color:rgba(176,99,103,.18)}
+.flowmark{
+  display:flex;align-items:center;gap:8px;justify-content:center;
+  padding:7px 0;background:var(--cream);border-bottom:1px solid var(--line-soft);
+  font-size:11.5px;color:var(--muted);letter-spacing:.05em;
+}
+.flowmark svg{width:13px;height:13px;transform:rotate(90deg);color:var(--primary);opacity:.65}
+
+/* ---------- timeline ---------- */
+.timeline{list-style:none;position:relative;padding-left:30px}
+.timeline::before{content:"";position:absolute;left:7px;top:8px;bottom:10px;width:2px;background:var(--primary);opacity:.3}
+.timeline li{position:relative;padding-bottom:22px}
+.timeline li:last-child{padding-bottom:0}
+.timeline li::before{
+  content:"";position:absolute;left:-29px;top:4px;width:13px;height:13px;border-radius:50%;
+  background:#fff;border:2px solid var(--primary);
+}
+.timeline .step{font-weight:600;font-size:14px;margin-bottom:2px}
+.timeline p{font-size:13.5px;color:var(--ink2);margin-top:3px}
+.timeline .out{
+  display:inline-block;margin-top:7px;font-family:'JetBrains Mono',monospace;font-size:12px;
+  color:var(--primary);background:var(--primary-soft);padding:3px 9px;border-radius:6px;
+}
+
+/* ---------- skills grid ---------- */
+.skill-groups{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;align-items:start}
+.sg{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:17px 19px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.sg h3{font-size:13px;font-weight:600;letter-spacing:.02em;display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.sg h3 i{width:7px;height:7px;border-radius:50%;background:var(--primary);flex:none;font-style:normal}
+.sg.g2 h3 i{background:var(--warm)} .sg.g3 h3 i{background:var(--rose)} .sg.g4 h3 i{background:var(--ink2)}
+.sg ul{list-style:none}
+.sg li{padding:7px 0;border-top:1px solid var(--line-soft);font-size:13px;display:flex;gap:9px;align-items:baseline}
+.sg li:first-child{border-top:0}
+.sg code{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--primary);background:var(--primary-soft);padding:1.5px 6px;border-radius:5px;white-space:nowrap;flex:none}
+.sg.g2 code{color:var(--warm);background:var(--warm-soft)}
+.sg.g3 code{color:var(--rose);background:var(--rose-soft)}
+.sg.g4 code{color:var(--ink2);background:rgba(58,66,86,.07)}
+.sg li span{color:var(--ink2);font-size:12.5px}
+
+/* ---------- routing table ---------- */
+.route{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.route table{width:100%;border-collapse:collapse}
+.route th{
+  text-align:left;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+  font-weight:600;padding:12px 18px;background:var(--cream);border-bottom:1px solid var(--line);
+}
+.route td{padding:9px 18px;font-size:13px;border-bottom:1px solid var(--line-soft);vertical-align:top}
+.route tr:last-child td{border-bottom:0}
+.route td:first-child{color:var(--ink2);width:52%}
+.route td:last-child{width:48%}
+.route code{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--primary);background:var(--primary-soft);padding:2px 7px;border-radius:5px;white-space:nowrap}
+.route tr:hover td{background:rgba(47,111,94,.025)}
+
+/* ---------- how to use ---------- */
+.how{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.how .box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.how .box h3{font-size:13.5px;font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.how .box h3 svg{width:16px;height:16px;color:var(--primary)}
+.steps{list-style:none;counter-reset:s}
+.steps li{counter-increment:s;position:relative;padding:8px 0 8px 32px;font-size:13px;color:var(--ink2);border-top:1px solid var(--line-soft)}
+.steps li:first-child{border-top:0}
+.steps li::before{
+  content:counter(s);position:absolute;left:0;top:9px;width:20px;height:20px;border-radius:50%;
+  background:var(--primary-soft);color:var(--primary);font-size:11px;font-weight:600;
+  display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;
+}
+.steps li b{color:var(--ink);font-weight:600}
+.q4{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.q4 div{background:var(--cream);border:1px solid var(--line-soft);border-radius:10px;padding:11px 13px}
+.q4 b{display:block;font-size:12.5px;margin-bottom:2px}
+.q4 span{font-size:11.5px;color:var(--muted);font-family:'JetBrains Mono',monospace}
+
+/* ---------- contrast ---------- */
+.contrast{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.qbox{border-radius:13px;padding:15px 17px;border:1px solid var(--line)}
+.qbox.bad{background:rgba(176,99,103,.06);border-color:rgba(176,99,103,.2)}
+.qbox.good{background:var(--primary-soft);border-color:rgba(47,111,94,.2)}
+.qbox .tag{font-size:11px;font-weight:600;letter-spacing:.1em;margin-bottom:7px}
+.qbox.bad .tag{color:var(--rose)} .qbox.good .tag{color:var(--primary)}
+.qbox p{font-size:13px;color:var(--ink2);line-height:1.58}
+.qbox .ann{font-size:11.5px;color:var(--muted);margin-top:9px;padding-top:8px;border-top:1px dashed var(--line)}
+
+/* ---------- notes ---------- */
+.notes{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:6px 20px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.notes .kv{display:grid;grid-template-columns:150px 1fr;row-gap:0;column-gap:18px;margin:0}
+.notes dt{padding:11px 0;border-bottom:1px solid var(--line-soft);font-weight:600;font-size:12.5px}
+.notes dd{padding:11px 0;border-bottom:1px solid var(--line-soft);font-size:13px;color:var(--ink2)}
+.notes dt:last-of-type,.notes dd:last-of-type{border-bottom:0}
+.warn{border-left:2px solid var(--warm);padding-left:11px;color:var(--ink2)}
+
+footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:space-between}
+footer code{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--primary)}
+
+@media (max-width:860px){
+  .skill-groups,.how,.contrast{grid-template-columns:1fr}
+  .layer{grid-template-columns:1fr}
+  .layer-meta{border-right:0;border-bottom:1px solid var(--line-soft);padding:13px 16px}
+  .layer-body{padding:14px 16px}
+  .route td:first-child{width:auto}
+  .meta div{padding-right:18px;margin-right:18px}
+  h1{font-size:27px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="eyebrow">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      电商运营 Agent Skills
+    </div>
+    <h1>把 2012 篇运营方法论，<br>编译成 <em>18 本随身作业手册</em></h1>
+    <p class="lede">不是资料摘抄，是<strong>能照着做</strong>的东西：每一本都写清什么时候用、怎么做、什么时候别这么做。门槛数字全部来自真实课程与实战记录，素材本身有矛盾时两套都写出来并标出处。</p>
+    <div class="meta">
+      <div><b>18</b><span>本手册</span></div>
+      <div><b>77</b><span>篇分册</span></div>
+      <div><b>149</b><span>份文档</span></div>
+      <div><b>2013</b><span>页入库</span></div>
+      <div><b>24077</b><span>检索片段</span></div>
+      <div><b>0</b><span>质检错误</span></div>
+    </div>
+  </header>
+
+  <section>
+    <div class="sec-head">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+      <h2>四层分工：像一家电商公司</h2>
+    </div>
+    <p class="sec-sub">18 本手册不是平铺的，而是分了四层。分层的意义在于：<b>不知道找谁时往上走一层，已经在具体环节卡住就直接往下跳。</b></p>
+    <div class="layers">
+      <div class="layer">
+        <div class="layer-meta"><div class="tier">L0 · 总纲</div><div class="cnt">1 本 · 总经理</div></div>
+        <div class="layer-body">
+          <div class="role">全链路经营手册 <span>· 回答"我在哪一环？该找谁？公式是多少？"</span></div>
+          <div class="chips"><span class="chip">taobao-ops-playbook</span></div>
+        </div>
+      </div>
+      <div class="flowmark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>往下展开成具体业务线</div>
+      <div class="layer">
+        <div class="layer-meta"><div class="tier">L1 · 体系层</div><div class="cnt">6 本 · 部门主管</div></div>
+        <div class="layer-body">
+          <div class="role">六条业务线整体怎么打 <span>· 诊断 / 货盘 / 投放 / 爆款 / 客户 / 利润</span></div>
+          <div class="chips">
+            <span class="chip">store-diagnosis</span><span class="chip">sabc-product-tiering</span>
+            <span class="chip">wanxiangtai-wujie</span><span class="chip">hit-product-lifecycle</span>
+            <span class="chip">customer-asset-ops</span><span class="chip">profit-model</span>
+          </div>
+        </div>
+      </div>
+      <div class="flowmark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>落到具体岗位动作</div>
+      <div class="layer">
+        <div class="layer-meta"><div class="tier">L2 · 域层</div><div class="cnt">9 本 · 专项岗位</div></div>
+        <div class="layer-body">
+          <div class="role">这个活儿具体怎么做 <span>· 每个都是可独立执行的作业手册</span></div>
+          <div class="chips">
+            <span class="chip w">selection-testing</span><span class="chip w">keyword-promo</span>
+            <span class="chip w">conversion-optimization</span><span class="chip w">pricing-margin</span>
+            <span class="chip w">campaign-playbook</span><span class="chip w">data-metrics</span>
+            <span class="chip w">visual-material</span><span class="chip w">toolchain-ai</span>
+            <span class="chip w">compliance-medical</span>
+          </div>
+        </div>
+      </div>
+      <div class="flowmark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>开箱即用，直接给成品</div>
+      <div class="layer">
+        <div class="layer-meta"><div class="tier">L3 · 工具层</div><div class="cnt">2 本 · 作业包</div></div>
+        <div class="layer-body">
+          <div class="role">给可交付的东西，不用再问 <span>· 表格、词包、需求地图</span></div>
+          <div class="chips"><span class="chip r">trend-keyword-launch</span><span class="chip r">review-insight-mining</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"/><path d="m16.2 7.8 2.9-2.9"/><path d="M18 12h4"/><path d="M16.2 16.2 19.1 19.1"/><path d="M12 18v4"/><path d="m4.9 19.1 2.9-2.9"/><path d="M2 12h4"/><path d="m4.9 4.9 2.9 2.9"/><circle cx="12" cy="12" r="3"/></svg>
+      <h2>四步做完的</h2>
+    </div>
+    <p class="sec-sub">从一堆散笔记到一套能用的技能库，中间做了这四件事。</p>
+    <ol class="timeline">
+      <li>
+        <div class="step">装进检索系统</div>
+        <p>把整套知识库导入 AI 的记忆库（GBRain），并画出笔记之间的引用关系图。</p>
+        <span class="out">2012 篇 → 2013 页入库 · 24077 片段 · 链接图谱已建</span>
+      </li>
+      <li>
+        <div class="step">盘点结构</div>
+        <p>通读全库，识别哪些是"体系"、哪些只是"单点招数"，分出 10 大业务模块。</p>
+        <span class="out">10 大业务模块 · 核心体系 6 套 · 项目 SOP / 诊断 / 合规 各自成线</span>
+      </li>
+      <li>
+        <div class="step">规划分工</div>
+        <p>设计四层框架，划清 18 本手册的边界 —— 谁负责诊断、谁负责执行、谁给成品。</p>
+        <span class="out">L0×1 · L1×6 · L2×9 · L3×2 = 18 本</span>
+      </li>
+      <li>
+        <div class="step">逐本写 + 质检</div>
+        <p>写作过程用脚本逐条核对数字是否真的来自原文，并自动检查结构、引用、占位符。</p>
+        <span class="out">149 份文档 · 质检 0 错误 0 警告 · 推送后自动复检通过</span>
+      </li>
+    </ol>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      <h2>18 本手册一览</h2>
+    </div>
+    <p class="sec-sub">按层分组。名称是可以直接点名调用的（命令式输入即可），右边是打开它的时机。</p>
+    <div class="skill-groups">
+      <div class="sg g1">
+        <h3><i></i>L0 总纲 · 1 本</h3>
+        <ul><li><code>taobao-ops-playbook</code><span>整体该按什么顺序做、公式怎么算</span></li></ul>
+      </div>
+      <div class="sg g2">
+        <h3><i></i>L1 体系层 · 6 本</h3>
+        <ul>
+          <li><code>store-diagnosis</code><span>钱花在哪、投产是不是假好</span></li>
+          <li><code>sabc-product-tiering</code><span>哪个链接加预算、哪个该停</span></li>
+          <li><code>wanxiangtai-wujie</code><span>全域推广计划怎么搭怎么调</span></li>
+          <li><code>hit-product-lifecycle</code><span>链接在爆款哪个阶段、标签怎么叠</span></li>
+          <li><code>customer-asset-ops</code><span>人群分层、老客召回、复购</span></li>
+          <li><code>profit-model</code><span>到底赚不赚钱、该投多少、何时停</span></li>
+        </ul>
+      </div>
+      <div class="sg g3">
+        <h3><i></i>L2 域层 · 9 本</h3>
+        <ul>
+          <li><code>selection-testing</code><span>新品立项、七维选品、测图测款</span></li>
+          <li><code>keyword-promo</code><span>有展现没点击、搜索被抢</span></li>
+          <li><code>conversion-optimization</code><span>有流量没成交、客单价上不去</span></li>
+          <li><code>pricing-margin</code><span>定价、活动空间、最低价管控</span></li>
+          <li><code>campaign-playbook</code><span>618 / 双 11 节奏与蓄水</span></li>
+          <li><code>data-metrics</code><span>平台考核什么、报表先看哪个数</span></li>
+          <li><code>visual-material</code><span>主图点击率、铺素材拿免费流量</span></li>
+          <li><code>toolchain-ai</code><span>后台 AI 工具、搭运营智能体</span></li>
+          <li><code>compliance-medical</code><span>医械禁用词、资质、处罚分级</span></li>
+        </ul>
+      </div>
+      <div class="sg g4">
+        <h3><i></i>L3 工具层 · 2 本</h3>
+        <ul>
+          <li><code>trend-keyword-launch</code><span>趋势词 → 开款结构 + 标题 + 词包</span></li>
+          <li><code>review-insight-mining</code><span>用户评价 → 需求地图 + 爆款方向</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9.1 9 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      <h2>症状 → 翻哪本</h2>
+    </div>
+    <p class="sec-sub">最常用的这张对照表。不知道该找谁时，先看最后一行的总纲手册。</p>
+    <div class="route">
+      <table>
+        <thead><tr><th>你遇到的情况</th><th>打开哪本</th></tr></thead>
+        <tbody>
+          <tr><td>生意参谋上的数看不懂，不知道从哪看起</td><td><code>data-metrics</code></td></tr>
+          <tr><td>推广费比突然变高，投产好看却不赚钱</td><td><code>store-diagnosis</code> → <code>profit-model</code></td></tr>
+          <tr><td>不知道哪个链接该加钱、哪个该停</td><td><code>sabc-product-tiering</code></td></tr>
+          <tr><td>新品上不去，想知道卡在哪一环</td><td><code>hit-product-lifecycle</code> → <code>selection-testing</code></td></tr>
+          <tr><td>全域推广计划该怎么搭、预算怎么分</td><td><code>wanxiangtai-wujie</code></td></tr>
+          <tr><td>搜索有展现没点击、排名被竞品抢走</td><td><code>keyword-promo</code></td></tr>
+          <tr><td>有流量不成交、客单价上不去</td><td><code>conversion-optimization</code></td></tr>
+          <tr><td>要给新品定价、算活动还有多少空间</td><td><code>pricing-margin</code></td></tr>
+          <tr><td>要报 618 / 双 11，倒排节奏和蓄水</td><td><code>campaign-playbook</code></td></tr>
+          <tr><td>老客不复购、新客拉不动</td><td><code>customer-asset-ops</code></td></tr>
+          <tr><td>主图点击率低、想铺素材拿免费流量</td><td><code>visual-material</code></td></tr>
+          <tr><td>医械店查禁用词、大促前全店审查</td><td><code>compliance-medical</code></td></tr>
+          <tr><td>后台 AI 工具怎么用、怎么搭团队知识库</td><td><code>toolchain-ai</code></td></tr>
+          <tr><td>要一批能直接投产的词包与标题</td><td><code>trend-keyword-launch</code></td></tr>
+          <tr><td>要从用户评价里挖需求与卖点</td><td><code>review-insight-mining</code></td></tr>
+          <tr><td><b>不确定该找哪本、整体按什么顺序做</b></td><td><code>taobao-ops-playbook</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+      <h2>怎么提问才问得动</h2>
+    </div>
+    <p class="sec-sub">不需要记手册名，也不需要记顺序。把话说明白，AI 自己会挑对应那本。</p>
+    <div class="how">
+      <div class="box">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>三种调用方式</h3>
+        <ol class="steps">
+          <li><b>直接说人话</b>（推荐）—— 讲清情况，AI 自己匹配手册</li>
+          <li><b>点名要哪本</b> —— "用 profit-model 算盈亏平衡"，结果更聚焦</li>
+          <li><b>串起来用</b> —— 先诊断 → 再算账 → 最后重新分预算</li>
+        </ol>
+      </div>
+      <div class="box">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h10"/></svg>提问的四个要素</h3>
+        <div class="q4">
+          <div><b>对象</b><span>哪个店 / 链接 / 类目</span></div>
+          <div><b>症状</b><span>哪里不对、何时开始</span></div>
+          <div><b>数据</b><span>费比、转化率、毛利率</span></div>
+          <div><b>时间</b><span>上周 / 上月 / 大促之后</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contrast" style="margin-top:14px">
+      <div class="qbox bad">
+        <div class="tag">问得太虚</div>
+        <p>"我的店铺最近生意不好，怎么办？"</p>
+        <div class="ann">只能回一份"应该都做一下"的清单</div>
+      </div>
+      <div class="qbox good">
+        <div class="tag">补齐四要素</div>
+        <p>"做家用血压计的天猫店。8 月起推广费比 12%→19%，GSV 掉 15%，主推款客单价 189 元。推荐流量已占 85%。帮我诊断钱花在哪没生效。"</p>
+        <div class="ann">AI 会走：先诊断 → 判断问题在哪一层 → 给动作和停手标准</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+      <h2>用之前要知道的事</h2>
+    </div>
+    <div class="notes">
+      <dl class="kv">
+        <dt>数据有时效</dt>
+        <dd class="warn">里面的门槛是 2026 上半年的口径快照。平台规则会变 —— 引用具体数字前先核对当期平台公告。</dd>
+        <dt>只覆盖淘系</dt>
+        <dd>淘宝 / 天猫。京东、拼多多、抖音的对应方法论在知识库里另有笔记，本轮没有做进来。</dd>
+        <dt>医械手册只适用医械</dt>
+        <dd>其他类目不要套用禁用词表。</dd>
+        <dt>口径冲突要人来拍板</dt>
+        <dd class="warn">素材本身有两种说法时（比如体验分 4.6 还是 4.2），库里两套都写并标出处，不替你选。</dd>
+        <dt>灰色手法只标风险</dt>
+        <dd>买家秀 P 图、多账号问大家、差评折叠这类做法，只标了风险等级，<b>不提供规避平台检测的方法</b>。</dd>
+        <dt>部分内容未验证</dt>
+        <dd>关键词推广后 8 式、RFM 八分类阈值、尖刀连原稿等原始资料本身有缺口，库里已逐条标注。</dd>
+      </dl>
+    </div>
+  </section>
+
+  <footer>
+    <span>电商运营 Agent Skills · <code>github.com/kizemo/skill-ecommercial</code></span>
+    <span>来源：taobao-operation 知识库（2112 篇 / 49MB / 10 大业务模块）</span>
+  </footer>
+
+</div>
+</body>
+</html>
