@@ -4,6 +4,11 @@ node_modules/
 dist/
 *.log
 
+# python
+__pycache__/
+*.py[cod]
+.venv/
+
 # OS
 .DS_Store
 Thumbs.db
