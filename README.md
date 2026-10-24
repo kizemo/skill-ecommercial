@@ -106,7 +106,7 @@ skills/<skill-name>/
 ## 规划与边界
 
 - [`docs/使用说明书.md`](docs/使用说明书.md) —— **面向使用者的完整说明书**（分工 / 调用方式 / 症状速查），配套可视化页 [`docs/技能地图.html`](docs/技能地图.html)
-- [`docs/ROADMAP.md`](docs/ROADMAP.md) —— 四层架构、18 个 skill 的完整规划、制作批次、质量门禁、已知缺口
+- [`docs/ROADMAP.md`](docs/ROADMAP.md) —— 四层架构、19 个 skill 的完整规划、制作批次、质量门禁、已知缺口
 - **只覆盖淘系**（淘宝/天猫）。京东 / 拼多多 / 抖音的对应方法论在知识库中另有笔记，本轮未 skill 化
 - 医疗器械相关内容仅适用于医疗器械类目
 
