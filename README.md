@@ -2,9 +2,9 @@
 
 > 淘宝 / 天猫电商运营 Agent Skills —— 把一套 2013 页的运营知识库，编译成 agent 能直接执行的 20 本技能手册。
 
-[![skills](https://img.shields.io/badge/skills-19-blue)](skills/)
+[![skills](https://img.shields.io/badge/skills-20-blue)](skills/)
 [![layer](https://img.shields.io/badge/layer-L0%E2%86%92L3-green)](docs/ROADMAP.md)
-[![docs](https://img.shields.io/badge/docs-158-lightgrey)](docs/)
+[![docs](https://img.shields.io/badge/docs-175-lightgrey)](docs/)
 [![source](https://img.shields.io/badge/source-taobao--operation-orange)](docs/SOURCE-NOTES.md)
 [![ci](https://github.com/kizemo/skill-ecommercial/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/kizemo/skill-ecommercial/actions/workflows/validate-skills.yml)
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
@@ -306,11 +306,11 @@ cp -r skill-ecommercial/skills/* ~/.claude/skills/
 
 | Skill | 用途 |
 |---|---|
-| [`selection-testing`](skills/selection-testing/) | 选品与测款：七维选品、五大选款法、虚假爆款识别、测图判据 |
+| [`selection-testing`](skills/selection-testing/) | 选品与测款：七维选品、五大选款法、虚假爆款识别、测图判据、老草测款方法（共鸣词包 / 点击单价进攻 / 相同流量环境） |
 | [`keyword-promo`](skills/keyword-promo/) | 关键词与搜索推广：十三式战法、大词/精准词/长尾词分层、竞品截流 |
 | [`conversion-optimization`](skills/conversion-optimization/) | 转化与客单：决策链路优先级、SKU 五要素、FABE 主图、买家秀五法 |
 | [`pricing-margin`](skills/pricing-margin/) | 定价与费比：科学定价、预留空间公式、最低价管控、费比核算 |
-| [`campaign-playbook`](skills/campaign-playbook/) | 大促作战：六大 S 级大促节奏、报名四要点、蓄水与付费节奏、价盘管控 |
+| [`campaign-playbook`](skills/campaign-playbook/) | 大促作战：六大 S 级大促节奏、报名四要点、蓄水与付费节奏、价盘管控、**双11 备战 2026**（资产召回 / 一品多链 / SKU 独立展示） |
 | [`data-metrics`](skills/data-metrics/) | 指标口径与考核维度：四大金刚、8 维度考核、建模路线 |
 | [`visual-material`](skills/visual-material/) | 视觉与素材：素材革命八大入口、每周素材 SOP、主图裂变、AI 主图四法 |
 | [`toolchain-ai`](skills/toolchain-ai/) | 工具链与 AI 提效：千牛 AI/生意管家三层架构、1 店长+6 数字员工、智能体与多 Agent 配置 |
