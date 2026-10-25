@@ -5,14 +5,14 @@
     "url": "https://github.com/kizemo"
   },
   "metadata": {
-    "description": "淘宝/天猫电商运营 Agent Skills —— 19 本可执行手册，含直连 PostgreSQL 的每日巡店技能",
+    "description": "淘宝/天猫电商运营 Agent Skills —— 20 本可执行手册，含直连 PostgreSQL 的每日巡店技能与全域增长操盘（推广红绿灯）",
     "version": "1.0.0"
   },
   "plugins": [
     {
       "name": "skill-ecommercial",
       "source": "./",
-      "description": "19 本电商运营手册：总纲 / 店铺诊断 / 货盘分级 / 全域投放 / 爆款周期 / 客户资产 / 利润算账 / 每日巡店 / 选品测款 / 关键词推广 / 转化优化 / 定价毛利 / 大促作战 / 数据指标 / 视觉素材 / 工具链 AI / 合规红线 / 趋势词开款 / 评价挖掘",
+      "description": "20 本电商运营手册：总纲 / 店铺诊断 / 货盘分级 / 全域投放 / 爆款周期 / 客户资产 / 利润算账 / 每日巡店 / 全域增长操盘 / 选品测款 / 关键词推广 / 转化优化 / 定价毛利 / 大促作战 / 数据指标 / 视觉素材 / 工具链 AI / 合规红线 / 趋势词开款 / 评价挖掘",
       "version": "1.0.0",
       "author": {
         "name": "kizemo"

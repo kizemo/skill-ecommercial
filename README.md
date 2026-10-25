@@ -1,6 +1,6 @@
 # skill-ecommercial
 
-> 淘宝 / 天猫电商运营 Agent Skills —— 把一套 2013 页的运营知识库，编译成 agent 能直接执行的 19 本技能手册。
+> 淘宝 / 天猫电商运营 Agent Skills —— 把一套 2013 页的运营知识库，编译成 agent 能直接执行的 20 本技能手册。
 
 [![skills](https://img.shields.io/badge/skills-19-blue)](skills/)
 [![layer](https://img.shields.io/badge/layer-L0%E2%86%92L3-green)](docs/ROADMAP.md)
@@ -91,7 +91,7 @@
 
 ### 对数据侧：有一本是真能跑的
 
-19 本里有一本不一样 —— [`daily-store-patrol`](skills/daily-store-patrol/) **直连 PostgreSQL**，把 ERP 每日订单/成本/推广费用 与 店铺侧流量/客户资产/万相台推广 接成一条每日巡店流水线，附可运行脚本。
+20 本里有两本不一样 —— [`daily-store-patrol`](skills/daily-store-patrol/) **直连 PostgreSQL**，把 ERP 每日订单/成本/推广费用 与 店铺侧流量/客户资产/万相台推广 接成一条每日巡店流水线，附可运行脚本；[`domain-growth-ops`](skills/domain-growth-ops/) 把智篆商业·老草老师的全域增长方法论（含**推广红绿灯**）编译成决策层手册。
 
 对 7 家淘宝店实测跑通，输出红绿灯表、问题清单、机会清单、今日行动项：
 
@@ -112,7 +112,7 @@
 
 ## 核心特性
 
-- ✅ **19 本技能，四层架构** —— L0 总纲 → L1 体系层（7）→ L2 域层（9）→ L3 工具层（2），依赖方向单向，不循环
+- ✅ **20 本技能，四层架构** —— L0 总纲 → L1 体系层（8）→ L2 域层（9）→ L3 工具层（2），依赖方向单向，不循环
 - ✅ **统一目录结构** —— 每本都是 `SKILL.md` + `chapters/` + `glossary.md` + `patterns.md` + `cheatsheet.md`，机器可校验
 - ✅ **可运行脚本** —— 巡店脚本对 7 店实测跑通，口令走环境变量，不入库
 - ✅ **自动质量门禁** —— 结构 / frontmatter / token 预算 / 占位符 / 交叉引用 / 决策性内容，10 项检查，CI 每次提交跑
@@ -164,7 +164,7 @@ npx skills add https://github.com/kizemo/skill-ecommercial -g -a '*' -s '*' -y -
 |---|---|
 | `-g` | 装到全局（个人级），不加则装到当前项目 |
 | `-a '*'` | 装给所有已支持的 agent |
-| `-s '*'` | 装全部 19 本 |
+| `-s '*'` | 装全部 20 本 |
 | `--copy` | 复制而非符号链接（Windows 非管理员必加） |
 | `-y` | 跳过交互确认 |
 
@@ -236,6 +236,7 @@ cp -r skill-ecommercial/skills/* ~/.claude/skills/
 /taobao-ops-playbook     # L0 总纲 / 路由
 /store-diagnosis         # L1 店铺诊断
 /daily-store-patrol      # L1 每日巡店（直连数据库）
+/domain-growth-ops       # L1 全域增长操盘（推广红绿灯）
 /profit-model            # L1 利润算账
 /customer-asset-ops      # L1 客户资产
 ```
@@ -255,6 +256,7 @@ cp -r skill-ecommercial/skills/* ~/.claude/skills/
 | 不知道哪个链接该加钱、该停 | `sabc-product-tiering` |
 | 钱花在哪没生效 | `store-diagnosis` |
 | 计划怎么搭、预算怎么加减 | `wanxiangtai-wujie` |
+| 费比红线、推广红绿灯、该给谁加钱该停谁 | `domain-growth-ops` |
 | 搜索没点击、排名被抢 | `keyword-promo` |
 | 有流量没成交、主图/详情页要改 | `conversion-optimization` |
 | 定价、活动空间、最低价 | `pricing-margin` |
@@ -279,7 +281,7 @@ cp -r skill-ecommercial/skills/* ~/.claude/skills/
 
 ## 技能清单
 
-四层共 **19 个** skill，全部已制作并通过质量门禁。
+四层共 **20 个** skill，全部已制作并通过质量门禁。
 
 ### L0 · 总纲层（1）
 
@@ -287,7 +289,7 @@ cp -r skill-ecommercial/skills/* ~/.claude/skills/
 |---|---|
 | [`taobao-ops-playbook`](skills/taobao-ops-playbook/) | 全链路导航与总纲：环境变化、四大金刚、15 条核心公式、爆款四阶段、选路决策树 |
 
-### L1 · 体系层（7 · 跨模块核心方法论）
+### L1 · 体系层（8 · 跨模块核心方法论）
 
 | Skill | 用途 |
 |---|---|
@@ -298,6 +300,7 @@ cp -r skill-ecommercial/skills/* ~/.claude/skills/
 | [`customer-asset-ops`](skills/customer-asset-ops/) | 人群资产运营：AIPL/O-AIPL/RFM、召回与复购 |
 | [`profit-model`](skills/profit-model/) | 盈利体系与算账：盈亏平衡 ROI、斩杀线、顺逆差、投产去伪 |
 | [`daily-store-patrol`](skills/daily-store-patrol/) | **每日巡店（数据驱动）**：连 PG 库逐日体检全店 —— 红绿灯表、异动规则库 28 条、重点商品/计划名单、**可直接跑的巡店脚本** |
+| [`domain-growth-ops`](skills/domain-growth-ops/) | **全域增长操盘（决策层）**：智篆商业·老草方法论 —— 推广红绿灯两轴三色与四场景、费比三口径与系列化核算、人群资产分层、系列看板赛马、Gap 公式、左侧拉新两步验证 |
 
 ### L2 · 域层（9 · 单业务域专项）
 
@@ -374,7 +377,7 @@ description: "淘宝/天猫店铺每日巡店：……关键词：每日巡店�
 
 ```
 skill-ecommercial/
-├── skills/                    # 19 本技能（每本一个目录）
+├── skills/                    # 20 本技能（每本一个目录）
 ├── scripts/
 │   ├── validate_skills.py     # 质量门禁：10 项检查
 │   └── install_skills.py      # 安装脚本：自动识别宿主目录
@@ -393,7 +396,7 @@ skill-ecommercial/
 
 ## 质量保障
 
-`scripts/validate_skills.py` 对全部 19 本跑 10 项检查，CI 每次提交自动执行：
+`scripts/validate_skills.py` 对全部 20 本跑 10 项检查，CI 每次提交自动执行：
 
 1. 目录结构完整性
 2. frontmatter 合法性，`name` 与目录名一致
@@ -408,7 +411,7 @@ skill-ecommercial/
 
 ```bash
 python scripts/validate_skills.py --root .
-# 检查 19 个 skill：0 error / 0 warn
+# 检查 20 个 skill：0 error / 0 warn
 ```
 
 ---
@@ -420,7 +423,7 @@ python scripts/validate_skills.py --root .
 | [`docs/安装指南.md`](docs/安装指南.md) | 要装的人 —— 各宿主目录、4 种安装方式、5 种调用方式、常见问题 |
 | [`docs/使用说明书.md`](docs/使用说明书.md) | 要用的人 —— 非技术语言的分工说明、症状速查表、一分钟速查 |
 | [`docs/技能地图.html`](docs/技能地图.html) | 想知道全貌的人 —— 可视化四层架构（浏览器直接打开） |
-| [`docs/ROADMAP.md`](docs/ROADMAP.md) | 关心设计的人 —— 四层架构、19 本的完整规划、制作批次、已知缺口 |
+| [`docs/ROADMAP.md`](docs/ROADMAP.md) | 关心设计的人 —— 四层架构、20 本的完整规划、制作批次、已知缺口 |
 | [`docs/SOURCE-NOTES.md`](docs/SOURCE-NOTES.md) | 关心可信度的人 —— 来源、纪律、验证记录 |
 
 ---
@@ -452,7 +455,7 @@ A：多半是用 URL 直链加的市场。要用 Git 方式：`/plugin marketpla
 A：符号链接需要管理员权限。加 `--copy`（skills CLI）或用默认的复制模式（仓库脚本）。
 
 **Q：我没有 PostgreSQL，能用吗？**
-A：能。19 本里只有 `daily-store-patrol` 需要数据库，其余 18 本是纯方法论。
+A：能。20 本里只有 `daily-store-patrol` 需要数据库，其余 19 本是纯方法论。
 
 **Q：能只装其中几本吗？**
 A：能。`npx skills add <repo> -s 'daily-store-patrol,store-diagnosis'`，或用仓库脚本的 `--only`。

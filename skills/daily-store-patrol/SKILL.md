@@ -230,7 +230,8 @@ python skills/daily-store-patrol/scripts/daily_patrol.py --shop all --out patrol
 | 钱花在哪没生效、投产假好 | `store-diagnosis` |
 | 该停哪个定向、领先率判读 | `store-diagnosis` |
 | 哪个链接该加预算、货盘怎么排 | `sabc-product-tiering` |
-| 计划怎么搭、预算怎么加减 | `wanxiangtai-wujie` |
+| 计划怎么搭（参数、组合、多品多域） | `wanxiangtai-wujie` |
+| 预算该加该减、费比是否超标、引流款该不该砍 | `domain-growth-ops`（推广红绿灯两轴三色 + 四场景 + Gap 公式） |
 | 转化低、SKU/主图/详情页怎么改 | `conversion-optimization` |
 | 搜索流量、选词、竞品截流 | `keyword-promo` |
 | 定价、活动空间、最低价管控 | `pricing-margin` |
@@ -248,5 +249,6 @@ python skills/daily-store-patrol/scripts/daily_patrol.py --shop all --out patrol
 - **本 skill 的数据只覆盖淘宝/天猫 7 个店铺**（`taobao` 库有 `shop_*` schema 的那些）。JD/PDD 店的数据在 `erp` 库但没有店铺侧流量/客户资产表，本流程的流量与客户资产步骤对它们**不适用**。
 - **万相台数据滞后约 3 周**（实测最新 2026-10-01 vs 店铺日报 10-22）—— 推广体检结论反映的是**三周前**的投放状态，不能当"昨日"用。
 - **红绿灯是相对判定**，绝对红线来自知识库；**知识库阈值是 2026 上半年口径快照**，平台规则会变，落地前核对当期公告。
-- **本 skill 不给推广操作指令**，只指出该关注哪个计划；改计划走 `wanxiangtai-wujie`。
+- **本 skill 不给推广操作指令**，只指出该关注哪个计划；改计划走 `wanxiangtai-wujie`，**加不加预算的决策走 `domain-growth-ops`**。
+- **两套红绿灯口径不同，不要混用**：本 skill 是**相对判定**（对比自身 7 日均值，找异动）；`domain-growth-ops` 是**绝对判定**（对比目标 ROI / 目标费比，定动作）。编排见 `taobao-ops-playbook` 的 `chapters/ch05-组件编排.md`。
 - 脚本**不内置任何数据库口令**，走标准环境变量/`.pgpass`。

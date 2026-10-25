@@ -3,7 +3,7 @@
 > 来源知识库：`taobao-operation`（Obsidian，2112 篇 Markdown / 49MB / 10 大业务模块）
 > 语料入库：GBRain host brain，source `taobao-operation`，2013 页 / 24077 chunks / 链接图谱已抽取
 > 数据侧增量：本机 PostgreSQL（`taobao` 库店铺侧 + `erp` 库交易成本侧），7 个淘宝店铺实测
-> 规划日期：2026-10-24　｜　**状态：19 个 skill 全部制作完成，质量门禁 0 error / 0 warn**
+> 规划日期：2026-10-24　｜　**状态：20 个 skill 全部制作完成，质量门禁 0 error / 0 warn**
 
 ---
 
@@ -23,10 +23,10 @@
 L0 总纲层  taobao-ops-playbook
    │  回答：我在哪一步 / 该用哪个 skill / 全链路公式是什么
    ▼
-L1 体系层  7 个跨模块、可独立运行的核心方法论体系
+L1 体系层  8 个跨模块、可独立运行的核心方法论体系
    │  sabc-product-tiering · store-diagnosis · wanxiangtai-wujie
    │  hit-product-lifecycle · customer-asset-ops · profit-model
-   │  daily-store-patrol
+   │  daily-store-patrol · domain-growth-ops
    ▼
 L2 域层    9 个单业务域专项
    │  selection-testing · keyword-promo · conversion-optimization
@@ -51,7 +51,7 @@ L3 工具层  2 个可直接跑的技能包
 |---|---|---|
 | `taobao-ops-playbook` | 淘宝运营全链路导航与总纲 | 10 大模块地图、15 条核心公式、四大金刚指标、店铺生命周期四阶段、选路决策树、全部 skill 索引 |
 
-### L1 — 体系层（7 个）
+### L1 — 体系层（8 个）
 
 | Skill | 用途 | 核心交付 |
 |---|---|---|
@@ -61,6 +61,7 @@ L3 工具层  2 个可直接跑的技能包
 | `hit-product-lifecycle` | 爆款全生命周期 | 四阶段与时间轴、LQ/BQ/CQ 三公式、叠标体系与权重表、爆款三型、阶段切换判据 |
 | `customer-asset-ops` | 人群资产运营 | AIPL/O-AIPL/RFM、生命周期五阶段、四类人群与策略、预算决定流量圈层、人群校正五方法、召回与留存 |
 | `profit-model` | 盈利体系与算账 | 3384 利润公式、盈亏平衡 ROI、斩杀线、顺逆差、真实投产去伪、利润/引流/形象款毛利率分工 |
+| `domain-growth-ops` | **全域增长操盘（决策层）** | **推广红绿灯**两轴三色与四场景、费比三口径（推广费比／去推费比／系列去推费比）、系列化核算与货盘厚度、人群资产分层与四象限投放、引潜比判收割/拉新、系列看板赛马法则、Gap 公式算可加预算、生命周期差异化预算、左侧拉新达摩盘两步验证 |
 | `daily-store-patrol` | **每日巡店（数据驱动）** | **每日六步流水线**（数据新鲜度→大盘红绿灯→流量结构→客户资产→推广体检→商品巡检→行动清单）、异动规则库 28 条、重点商品/计划/人群筛选算法、**可运行脚本**（机会项由数据实算）、PG 三个数据源字段地图与 10 个已踩的坑 |
 
 ### L2 — 域层（9 个）
@@ -94,6 +95,7 @@ L3 工具层  2 个可直接跑的技能包
 | **批次 2** | 9 个 L2 | 域层展开，引用 L1 结论 | ✅ 9/9 完成 |
 | **批次 3** | 2 个 L3 + 质量校验 | 工具包独立交付 + 全库 lint/一致性检查 | ✅ 2/2 完成，门禁 0 error / 0 warn |
 | **批次 4** | `daily-store-patrol`(L1，数据侧增量) | 把 PG 里的 ERP 每日订单/成本/推广费用 + 店铺侧流量/客户资产/万相台推广 落成每日巡店流水线 | ✅ 1/1 完成，脚本对 7 店实测跑通 |
+| **批次 5** | `domain-growth-ops`(L1，方法论增量) + 组件化重构 | 把智篆商业·老草三场讲座（范式重构 / 推广实操 / 增长方法论）与万相台无界课程编译成**决策层**手册（含**推广红绿灯**），并与 `daily-store-patrol` 一起挂到 L0 `taobao-ops-playbook` 的组件编排层 | ✅ 1/1 完成，7 章 + 术语/套路/速查三件套 |
 
 **制作方式**：L0、L3 与 L2 中的 `selection-testing` / `trend-keyword-launch` / `review-insight-mining` 由主线统一产出以保证样板质量；其余 L1/L2 批量部分并行产出，每个 worker 独占自己的 skill 目录，互不交叉写入。
 
@@ -130,7 +132,7 @@ python scripts/validate_skills.py --root .
 
 退出码：`0` = 全部通过，`1` = 有 ERROR，`2` = 用法错误。
 
-**当前状态**：19 个 skill —— **0 error / 0 warn**。
+**当前状态**：20 个 skill —— **0 error / 0 warn**。
 
 ---
 
