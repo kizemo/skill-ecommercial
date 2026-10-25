@@ -4,7 +4,8 @@
 
 [![skills](https://img.shields.io/badge/skills-20-blue)](skills/)
 [![layer](https://img.shields.io/badge/layer-L0%E2%86%92L3-green)](docs/ROADMAP.md)
-[![docs](https://img.shields.io/badge/docs-175-lightgrey)](docs/)
+[![chapters](https://img.shields.io/badge/chapters-95-lightgrey)](skills/)
+[![source](https://img.shields.io/badge/source-taobao--operation-orange)](docs/SOURCE-NOTES.md)
 [![source](https://img.shields.io/badge/source-taobao--operation-orange)](docs/SOURCE-NOTES.md)
 [![ci](https://github.com/kizemo/skill-ecommercial/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/kizemo/skill-ecommercial/actions/workflows/validate-skills.yml)
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
@@ -18,6 +19,7 @@
 - [这是什么](#这是什么)
 - [为什么值得用](#为什么值得用)
 - [核心特性](#核心特性)
+- [最近更新](#最近更新)
 - [快速开始](#快速开始)
 - [安装](#安装)
 - [怎么用](#怎么用)
@@ -119,6 +121,22 @@
 - ✅ **跨宿主通用** —— Anthropic Agent Skills 开放格式，Claude Code / cc-haha / MiniMax Code / Cursor / Codex 都能装
 - ✅ **4 种安装方式** —— 官方 skills CLI、仓库脚本、Claude Code 插件市场、手动拷贝
 - ✅ **数字纪律** —— 阈值必须来自知识库原文或数据库实测，缺失标注「未验证」，冲突标注「口径冲突，需复核」
+
+---
+
+## 最近更新
+
+**2026-10-25 · 补齐两个真实缺口 + 双宿主安装**
+
+| 新增 | 位置 | 讲什么 |
+|---|---|---|
+| **老草测款方法** | `selection-testing` ch04 | 相同流量环境、半个月看转化、500 块两条退路、共鸣词包、点击单价进攻 |
+| **双11 备战 2026** | `campaign-playbook` ch06 | 资产召回三类、10/15-11/14 节奏窗口、一品多链、SKU 级独立展示、规避系统比价、AI 视觉升级 |
+| **双11 官方落地** | `campaign-playbook` ch07 | 活动准备四步曲、先涨后降价格管控、红线价、达摩盘双11 活动（**2024/2025 口径**） |
+
+同时：`domain-growth-ops` 速查表补齐了 ch08 的预算配比与边际拐点阈值；仓库门禁维持 **20 skill / 0 error / 0 warn**，CI 每次 push 自动跑。
+
+> 这三个章节的原始素材**本来就在** `taobao-operation` 知识库里，此前未被使用 —— 所以本库是持续从源库编译的，不是一次性快照。
 
 ---
 
@@ -251,6 +269,7 @@ cp -r skill-ecommercial/skills/* ~/.claude/skills/
 
 | 你遇到的情况 | 打开哪本 |
 |---|---|
+| 不知道该用哪本、现在在哪一环 | `taobao-ops-playbook` |
 | 每天开店要做一次全店体检 | `daily-store-patrol` |
 | 费比突然变高，投产好看却不赚钱 | `store-diagnosis` → `profit-model` |
 | 不知道哪个链接该加钱、该停 | `sabc-product-tiering` |
@@ -261,6 +280,8 @@ cp -r skill-ecommercial/skills/* ~/.claude/skills/
 | 有流量没成交、主图/详情页要改 | `conversion-optimization` |
 | 定价、活动空间、最低价 | `pricing-margin` |
 | 大促节奏、蓄水、价盘 | `campaign-playbook` |
+| 双11 备盘、链接矩阵、资产召回 | `campaign-playbook` |
+| 新品测不出结果、测款没转化、要不要放弃 | `selection-testing` |
 | 指标口径、老板要什么数 | `data-metrics` |
 | 人群分层、召回、复购 | `customer-asset-ops` |
 | 算账、盈亏平衡、投产去伪 | `profit-model` |
@@ -380,7 +401,8 @@ skill-ecommercial/
 ├── skills/                    # 20 本技能（每本一个目录）
 ├── scripts/
 │   ├── validate_skills.py     # 质量门禁：10 项检查
-│   └── install_skills.py      # 安装脚本：自动识别宿主目录
+│   ├── install_skills.py      # 安装脚本：自动识别宿主目录
+│   └── verify_install.py      # 安装验收：逐文件 SHA256 比对仓库与宿主
 ├── docs/
 │   ├── 安装指南.md            # 装到哪、怎么装、怎么调、常见问题
 │   ├── 使用说明书.md          # 面向使用者的非技术说明
@@ -414,6 +436,13 @@ python scripts/validate_skills.py --root .
 # 检查 20 个 skill：0 error / 0 warn
 ```
 
+**装完还能再验一次** —— `scripts/verify_install.py` 逐文件比 SHA256，确认宿主里的内容与仓库完全一致（挡住"文件在但内容是旧版"）：
+
+```bash
+python scripts/verify_install.py
+# ✅ 验收通过：2 个宿主、20 本技能，文件与仓库一致、frontmatter 均为 name+description
+```
+
 ---
 
 ## 文档索引
@@ -430,7 +459,20 @@ python scripts/validate_skills.py --root .
 
 ## 路线图与边界
 
-**已覆盖**：30-流量与推广、95-团队与方法论、10-战略、20-选品、70-数据、50-客户、80-工具、60-活动、90-合规、40-转化（按笔记数排序）。
+**已覆盖**（知识库 10 大业务模块的笔记数，实测）：
+
+| 模块 | 笔记数 | 落到哪本 |
+|---|---|---|
+| 95-团队与方法论 | 233 | `taobao-ops-playbook`、`domain-growth-ops`、`store-diagnosis`、`toolchain-ai` |
+| 30-流量与推广 | 139 | `wanxiangtai-wujie`、`keyword-promo`、`domain-growth-ops` |
+| 20-选品与商品 | 32 | `selection-testing`、`sabc-product-tiering`、`hit-product-lifecycle` |
+| 10-战略与商业模式 | 27 | `taobao-ops-playbook`、`profit-model` |
+| 70-数据与诊断 | 19 | `data-metrics`、`store-diagnosis`、`daily-store-patrol` |
+| 50-客户与私域 | 13 | `customer-asset-ops` |
+| 80-店铺后台与工具 | 12 | `toolchain-ai` |
+| 60-活动与大促 | 11 | `campaign-playbook` |
+| 90-平台规则与合规 | 10 | `compliance-medical` |
+| **40-转化与客单** | **4** | `conversion-optimization` —— **全库最稀疏模块，该技能相对单薄，是下一批补强的重点** |
 
 **边界**
 
@@ -438,8 +480,16 @@ python scripts/validate_skills.py --root .
 - **医疗器械相关内容仅适用于医疗器械类目**（`compliance-medical`）
 - **ERP 商品编码 ↔ 万相台宝贝ID 两套编码尚未对齐**，潜力品识别只能人工映射，已在技能中标注「未验证」
 - 阈值是 2026 上半年快照，**落地前核对当期平台公告**
+- **大促规则按年份标注**：方法论章（`campaign-playbook` ch06，双11 备战 2026）是 2026 口径；官方报名与价格管控章（ch07）是 **2024/2025 口径**，日期与阈值需回千牛后台当期公告核对
 
-**后续可补**：京东 / 拼多多 / 抖音对应技能、更多行业类目合规包、趋势词开款与评价挖掘的自动化脚本。
+**后续可补**（按优先级）
+
+1. **40-转化与客单模块补强** —— 该模块仅 4 篇、3 篇尚未覆盖，`conversion-optimization` 是当前最薄的一本
+2. **2026 双11 官方规则入库** —— 现有官方规则是 2024/2025 快照，当年的招商公告需要从平台侧补
+3. **医疗器械四品类打法** —— 家用 / 中医器械 / 医用敷料 / 器械电商，库内均为概念 stub
+4. **关键词十三式后 8 式** —— 素材只完整提取到第 5 式，后 8 式无可引用正文
+5. **618 项目级复盘闭环 / 新店启动项目** —— 三个项目目录仍是 Phase 4 stub
+6. 京东 / 拼多多 / 抖音对应技能、更多行业类目合规包、趋势词开款与评价挖掘的自动化脚本
 
 ---
 
@@ -462,6 +512,26 @@ A：能。`npx skills add <repo> -s 'daily-store-patrol,store-diagnosis'`，或�
 
 **Q：装在哪？C 盘还是 E 盘？**
 A：跑 `python scripts/install_skills.py --list-hosts`，看 ★ 标记 —— 那是脚本实际会写的位置。同一台机器上可能同时存在多个配置根，其中一个是符号链接或空壳。
+
+**Q：仓库更新了，已装的宿主怎么同步？**
+A：重跑安装脚本并加 `--force`，**装过的每个宿主都要跑一遍**：
+
+```bash
+python scripts/install_skills.py --host claude  --force
+python scripts/install_skills.py --host minimax --force
+```
+
+然后**重启宿主**。校验两侧是否与仓库一致：
+
+```bash
+python scripts/verify_install.py          # 全部宿主
+python scripts/verify_install.py minimax # 只查 MiniMax Code
+```
+
+它会逐文件比对 **SHA256**（不只是文件名），所以"仓库更新了但没重装"这种**旧版内容残留**也能被抓出来。
+
+**Q：双11 那本里的报名截止时间是 2026 的吗？**
+A：分两章看 —— **ch06 是 2026 口径**（方法论：资产召回、一品多链、10/15-11/14 窗口）；**ch07 是 2024/2025 官方口径**（报名截止、先涨后降阈值、达摩盘活动）。官方规则**按年发布**，ch07 的日期不能直接用，落地前回千牛后台当期公告核对。
 
 ---
 
