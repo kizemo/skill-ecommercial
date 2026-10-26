@@ -209,7 +209,7 @@ AI 内容生产效率参考：主图 **10-20 张/几分钟**（10 倍+）｜详�
 | 指标口径与考核权重 | [[data-metrics]] |
 | 选品与测款 | [[selection-testing]] |
 | 人群资产与召回 | [[customer-asset-ops]] |
-| 全局公式与决策树 | [[taobao-ops-playbook]] |
+| 全局公式与决策树 | [[skill-ecommercial]] |
 
 ---
 

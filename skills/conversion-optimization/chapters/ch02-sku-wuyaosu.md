@@ -133,5 +133,5 @@ SKU 是转化率优化的**第一战场**，也是客单价的**第一杠杆**�
 - 买家秀与问大家（信任资产） → [ch04-maijiuxiu-wendajia.md](ch04-maijiuxiu-wendajia.md)
 - 详情页结构与价格锚定法全文 → [ch05-xiangqingye-kejia.md](ch05-xiangqingye-kejia.md)
 - 定价与最低价管控 → [[pricing-margin]]
-- 连带购买率、客单价公式 → [[taobao-ops-playbook]]、[[profit-model]]
+- 连带购买率、客单价公式 → [[skill-ecommercial]]、[[profit-model]]
 - SKU 标题词与搜索流量 → [[keyword-promo]]

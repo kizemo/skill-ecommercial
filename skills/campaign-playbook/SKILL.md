@@ -276,7 +276,7 @@ Q4（10-12月）：双11预热 → 双11大促 → 双12 → 年终清仓
 5. **控付费** —— 保持日常费比，按阶段复盘再决定下一阶段
 6. **复盘** —— 用 §八 的 6 个指标，别只看 GMV
 
-**配合使用**：`[[pricing-margin]]`（定价与费比）、`[[profit-model]]`（算账）、`[[wanxiangtai-wujie]]`（大促期收割与全站）、`[[hit-product-lifecycle]]`（阶段标签与叠标）、`[[customer-asset-ops]]`（蓄水与召回）、`[[compliance-medical]]`（大促前合规审查）、`[[taobao-ops-playbook]]`（总纲）。
+**配合使用**：`[[pricing-margin]]`（定价与费比）、`[[profit-model]]`（算账）、`[[wanxiangtai-wujie]]`（大促期收割与全站）、`[[hit-product-lifecycle]]`（阶段标签与叠标）、`[[customer-asset-ops]]`（蓄水与召回）、`[[compliance-medical]]`（大促前合规审查）、`[[skill-ecommercial]]`（总纲）。
 
 ---
 

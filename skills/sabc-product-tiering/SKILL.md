@@ -11,7 +11,7 @@ description: "给淘宝/天猫店铺做 S/A/B/C 货盘分级、定预算比例�
 
 核心前提一句话：**资源永远稀缺，把 80% 的资源投入 20% 的高价值产品**。所以分级不是贴标签，是**花钱顺序**。
 
-上游结论看 [[taobao-ops-playbook]]；算账看 [[profit-model]]；诊断看 [[store-diagnosis]]。
+上游结论看 [[skill-ecommercial]]；算账看 [[profit-model]]；诊断看 [[store-diagnosis]]。
 
 ---
 

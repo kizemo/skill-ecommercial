@@ -9,7 +9,7 @@ description: "淘宝/天猫店铺的指标口径、考核维度与建模路线�
 
 本 skill 回答四件事：**① 平台考核什么？② 每个指标口径怎么算？③ 拿到数据先看什么？④ 店铺建模走哪条路线？**
 
-总纲看 [[taobao-ops-playbook]]，四层诊断主干看 [[store-diagnosis]]，费比与最低价看 [[pricing-margin]]，货盘看 [[sabc-product-tiering]]。
+总纲看 [[skill-ecommercial]]，四层诊断主干看 [[store-diagnosis]]，费比与最低价看 [[pricing-margin]]，货盘看 [[sabc-product-tiering]]。
 
 ---
 

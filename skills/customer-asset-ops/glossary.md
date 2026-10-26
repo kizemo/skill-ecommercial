@@ -1,6 +1,6 @@
 # 术语表 · customer-asset-ops
 
-> 每条给出来源笔记。跨 skill 术语见 [[taobao-ops-playbook]] 的术语表。
+> 每条给出来源笔记。跨 skill 术语见 [[skill-ecommercial]] 的术语表。
 
 **AIPL** — 人群资产模型四阶段：Awareness 认知（曝光量、CTR）→ Interest 兴趣（收藏量、加购量）→ Purchase 购买（转化率、客单价）→ Loyalty 忠诚（复购率、会员 LTV）。AIPL 人群资产 = Awareness + Interest + Purchase + Loyalty。（来源：客户运营体系）
 

@@ -16,7 +16,7 @@ description: "算这个链接/这个店赚不赚钱、投产是不是假好、�
 斩杀线        = 固定成本 ÷ (毛利率 − 推广费用占比)
 ```
 
-货盘怎么分级看 [[sabc-product-tiering]]；钱花在哪没生效看 [[store-diagnosis]]；总纲看 [[taobao-ops-playbook]]。
+货盘怎么分级看 [[sabc-product-tiering]]；钱花在哪没生效看 [[store-diagnosis]]；总纲看 [[skill-ecommercial]]。
 
 ---
 

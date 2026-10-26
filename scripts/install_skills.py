@@ -270,10 +270,10 @@ def main() -> int:
         print("下一步：")
         if host == "claude":
             print("  · 重启 Claude Code / cc-haha，新技能才会被索引")
-            print("  · 手动调用：/daily-store-patrol（不确定用哪本时先用 /taobao-ops-playbook 路由）")
+            print("  · 手动调用：/daily-store-patrol（不确定用哪本时先用 /skill-ecommercial 路由）")
         else:
             print("  · 重启 MiniMax Code，新技能才会被索引")
-            print("  · 手动调用：/daily-store-patrol（不确定用哪本时先用 /taobao-ops-playbook 路由）")
+            print("  · 手动调用：/daily-store-patrol（不确定用哪本时先用 /skill-ecommercial 路由）")
         if args.mode == "copy":
             print("  · 以后更新仓库后，重跑本命令即可（加 --force 覆盖旧版本）")
     return 0

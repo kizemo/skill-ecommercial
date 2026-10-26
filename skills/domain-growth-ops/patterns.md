@@ -199,4 +199,4 @@ AI 有执行度问题会跑错，但从"盲"变成"只需要改 AI 跑错的那�
 
 ## 相关技能
 
-[[wanxiangtai-wujie]]｜[[store-diagnosis]]｜[[profit-model]]｜[[customer-asset-ops]]｜[[hit-product-lifecycle]]｜[[keyword-promo]]｜[[data-metrics]]｜[[daily-store-patrol]]｜[[taobao-ops-playbook]]
+[[wanxiangtai-wujie]]｜[[store-diagnosis]]｜[[profit-model]]｜[[customer-asset-ops]]｜[[hit-product-lifecycle]]｜[[keyword-promo]]｜[[data-metrics]]｜[[daily-store-patrol]]｜[[skill-ecommercial]]

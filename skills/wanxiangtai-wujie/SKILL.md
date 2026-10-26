@@ -151,7 +151,7 @@ description: "万相台无界全域投放体系。搭建或诊断万相台（无
 | [chapters/ch06-数据融合与红绿灯监控.md](chapters/ch06-数据融合与红绿灯监控.md) | 融合六步、红绿灯、预算加减、大促 |
 | [glossary.md](glossary.md) / [patterns.md](patterns.md) / [cheatsheet.md](cheatsheet.md) | 术语 / 方法 / 速查与决策树 |
 
-**主题索引**：多品多域 → ch01-02｜人群与打散 → ch03｜收割拉新组合 → ch04｜场景分流与计划参数 → ch05｜加不加预算 → ch06｜全站 vs 无界 → cheatsheet｜链接阶段判定 → [[hit-product-lifecycle]]｜投产假好 → [[store-diagnosis]]｜算账斩杀线 → [[profit-model]]｜全局路由 → [[taobao-ops-playbook]]。
+**主题索引**：多品多域 → ch01-02｜人群与打散 → ch03｜收割拉新组合 → ch04｜场景分流与计划参数 → ch05｜加不加预算 → ch06｜全站 vs 无界 → cheatsheet｜链接阶段判定 → [[hit-product-lifecycle]]｜投产假好 → [[store-diagnosis]]｜算账斩杀线 → [[profit-model]]｜全局路由 → [[skill-ecommercial]]。
 
 ## 十、使用说明
 

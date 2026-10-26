@@ -1,4 +1,4 @@
-# 速查表 · taobao-ops-playbook
+# 速查表 · skill-ecommercial
 
 > 所有阈值均为知识库原文快照（2026 上半年口径）。平台规则会变，落地前核对当期公告。
 

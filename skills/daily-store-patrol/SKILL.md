@@ -109,7 +109,7 @@ python skills/daily-store-patrol/scripts/daily_patrol.py --shop all --out patrol
 | 店铺体验分 | **< 4.6** → 失去搜索权重 + 无法报名大促 | `compliance-medical` |
 | 商品体验分 PXI | **< 70** → 流量负向；**< 60** → 彻底断流 | `compliance-medical` |
 | 大促退款率 | 目标 **< 5%** | `campaign-playbook` |
-| 放量幅度 | 每次增幅 **≤ 50%** | `taobao-ops-playbook` |
+| 放量幅度 | 每次增幅 **≤ 50%** | `skill-ecommercial` |
 | 间接成交 / 直接成交 | **≥ 2 倍** → 该品投放完全无效 | `store-diagnosis` |
 | 领先率（新客成交占比） | ≥80% 合格｜70-80% 可接受｜50-70% 资源浪费在收割｜<50% 主要跑收割｜<30% 拉新链路已断 | `store-diagnosis` |
 
@@ -250,5 +250,5 @@ python skills/daily-store-patrol/scripts/daily_patrol.py --shop all --out patrol
 - **万相台数据滞后约 3 周**（实测最新 2026-10-01 vs 店铺日报 10-22）—— 推广体检结论反映的是**三周前**的投放状态，不能当"昨日"用。
 - **红绿灯是相对判定**，绝对红线来自知识库；**知识库阈值是 2026 上半年口径快照**，平台规则会变，落地前核对当期公告。
 - **本 skill 不给推广操作指令**，只指出该关注哪个计划；改计划走 `wanxiangtai-wujie`，**加不加预算的决策走 `domain-growth-ops`**。
-- **两套红绿灯口径不同，不要混用**：本 skill 是**相对判定**（对比自身 7 日均值，找异动）；`domain-growth-ops` 是**绝对判定**（对比目标 ROI / 目标费比，定动作）。编排见 `taobao-ops-playbook` 的 `chapters/ch05-组件编排.md`。
+- **两套红绿灯口径不同，不要混用**：本 skill 是**相对判定**（对比自身 7 日均值，找异动）；`domain-growth-ops` 是**绝对判定**（对比目标 ROI / 目标费比，定动作）。编排见 `skill-ecommercial` 的 `chapters/ch05-组件编排.md`。
 - 脚本**不内置任何数据库口令**，走标准环境变量/`.pgpass`。

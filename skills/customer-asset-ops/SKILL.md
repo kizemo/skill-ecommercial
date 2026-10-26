@@ -168,7 +168,7 @@ RFM 是与 AIPL 并行的另一条轴：AIPL 看**行为深度**，RFM 看**交�
 | 人群不准、要改定向 | [[store-diagnosis]] |
 | 人群包与计划怎么搭 | [[wanxiangtai-wujie]] |
 | 算召回与复购的账 | [[profit-model]] |
-| 全局定位与核心公式 | [[taobao-ops-playbook]] |
+| 全局定位与核心公式 | [[skill-ecommercial]] |
 
 ---
 

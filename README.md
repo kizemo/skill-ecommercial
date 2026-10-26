@@ -6,7 +6,6 @@
 [![layer](https://img.shields.io/badge/layer-L0%E2%86%92L3-green)](docs/ROADMAP.md)
 [![chapters](https://img.shields.io/badge/chapters-95-lightgrey)](skills/)
 [![source](https://img.shields.io/badge/source-taobao--operation-orange)](docs/SOURCE-NOTES.md)
-[![source](https://img.shields.io/badge/source-taobao--operation-orange)](docs/SOURCE-NOTES.md)
 [![ci](https://github.com/kizemo/skill-ecommercial/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/kizemo/skill-ecommercial/actions/workflows/validate-skills.yml)
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
@@ -126,7 +125,24 @@
 
 ## 最近更新
 
-**2026-10-25 · 补齐两个真实缺口 + 双宿主安装**
+### 2026-10-25 · 入口统一为 `skill-ecommercial`
+
+**仓库名、插件名、L0 入口技能名，现在三者同名。**
+
+| | 之前 | 现在 |
+|---|---|---|
+| L0 入口技能 | `taobao-ops-playbook` | **`skill-ecommercial`** |
+| GitHub 仓库 | `kizemo/skill-ecommercial` | 不变（核查后已合规，无需改名） |
+| Claude 插件 | `skill-ecommercial` | 不变 |
+
+同时做了两处路由消歧：
+
+- 入口技能的 `description` 补上 `skill-ecommercial`、`运营手册总入口` 等触发词，让宿主认得出这是总入口
+- `toolchain-ai` 的 `description` 把「AI 巡店」「潜力品筛选」限定为**生意管家自家功能**，不再抢 `daily-store-patrol` / `selection-testing` 的路由
+
+> ⚠️ **改名要重启宿主才生效**。旧目录不会被覆盖安装清掉，自己装的话重装后请手动删掉宿主里的旧入口目录（`taobao-ops-playbook`），否则新旧两个入口会并存。
+
+### 2026-10-25 · 补齐两个真实缺口（双11 拆成两章）
 
 | 新增 | 位置 | 讲什么 |
 |---|---|---|
@@ -163,7 +179,7 @@ npx skills add https://github.com/kizemo/skill-ecommercial -g -a '*' -s '*' -y -
 帮我巡一下店，看看费比和投产有没有问题
 ```
 
-宿主会自动匹配到 `daily-store-patrol`（或先走 `taobao-ops-playbook` 路由）。
+宿主会自动匹配到 `daily-store-patrol`（或先走 `skill-ecommercial` 路由）。
 
 > 不想用 npx？见 [安装](#安装) 里的其它三种方式。
 
@@ -251,25 +267,25 @@ cp -r skill-ecommercial/skills/* ~/.claude/skills/
 ### 2 · 斜杠命令，精确指定
 
 ```
-/taobao-ops-playbook     # L0 总纲 / 路由
-/store-diagnosis         # L1 店铺诊断
-/daily-store-patrol      # L1 每日巡店（直连数据库）
-/domain-growth-ops       # L1 全域增长操盘（推广红绿灯）
-/profit-model            # L1 利润算账
-/customer-asset-ops      # L1 客户资产
+/skill-ecommercial        # L0 总纲 / 路由
+/store-diagnosis          # L1 店铺诊断
+/daily-store-patrol       # L1 每日巡店（直连数据库）
+/domain-growth-ops        # L1 全域增长操盘（推广红绿灯）
+/profit-model             # L1 利润算账
+/customer-asset-ops       # L1 客户资产
 ```
 
 插件方式安装时带命名空间：`/skill-ecommercial:store-diagnosis`。
 
 ### 3 · 不知道用哪本？先走 L0 路由
 
-`taobao-ops-playbook` 是整套技能库的入口，它自己不执行动作，只回答三件事：**我现在在哪一环？这一环该用哪本？关键公式和阈值是多少？**
+`skill-ecommercial` 是整套技能库的入口，它自己不执行动作，只回答三件事：**我现在在哪一环？这一环该用哪本？关键公式和阈值是多少？**
 
 或者直接查这张症状速查表：
 
 | 你遇到的情况 | 打开哪本 |
 |---|---|
-| 不知道该用哪本、现在在哪一环 | `taobao-ops-playbook` |
+| 不知道该用哪本、现在在哪一环 | `skill-ecommercial` |
 | 每天开店要做一次全店体检 | `daily-store-patrol` |
 | 费比突然变高，投产好看却不赚钱 | `store-diagnosis` → `profit-model` |
 | 不知道哪个链接该加钱、该停 | `sabc-product-tiering` |
@@ -308,7 +324,7 @@ cp -r skill-ecommercial/skills/* ~/.claude/skills/
 
 | Skill | 用途 |
 |---|---|
-| [`taobao-ops-playbook`](skills/taobao-ops-playbook/) | 全链路导航与总纲：环境变化、四大金刚、15 条核心公式、爆款四阶段、选路决策树 |
+| [`skill-ecommercial`](skills/skill-ecommercial/) | **技能库入口（L0 总纲）**：环境变化、四大金刚、15 条核心公式、爆款四阶段、选路决策树 —— **不知道用哪本时先走这本** |
 
 ### L1 · 体系层（8 · 跨模块核心方法论）
 
@@ -463,10 +479,10 @@ python scripts/verify_install.py
 
 | 模块 | 笔记数 | 落到哪本 |
 |---|---|---|
-| 95-团队与方法论 | 233 | `taobao-ops-playbook`、`domain-growth-ops`、`store-diagnosis`、`toolchain-ai` |
+| 95-团队与方法论 | 233 | `skill-ecommercial`、`domain-growth-ops`、`store-diagnosis`、`toolchain-ai` |
 | 30-流量与推广 | 139 | `wanxiangtai-wujie`、`keyword-promo`、`domain-growth-ops` |
 | 20-选品与商品 | 32 | `selection-testing`、`sabc-product-tiering`、`hit-product-lifecycle` |
-| 10-战略与商业模式 | 27 | `taobao-ops-playbook`、`profit-model` |
+| 10-战略与商业模式 | 27 | `skill-ecommercial`、`profit-model` |
 | 70-数据与诊断 | 19 | `data-metrics`、`store-diagnosis`、`daily-store-patrol` |
 | 50-客户与私域 | 13 | `customer-asset-ops` |
 | 80-店铺后台与工具 | 12 | `toolchain-ai` |
@@ -497,6 +513,16 @@ python scripts/verify_install.py
 
 **Q：装完 `/skill-name` 说找不到？**
 A：没重启宿主。技能目录在会话启动时扫描。
+
+**Q：Claude 里同时出现 `skill-ecommercial` 和 `taobao-ops-playbook` 两个入口？**
+A：旧的入口目录残留。L0 入口已改名为 `skill-ecommercial`，但改**不会自动删掉**宿主里的旧目录 —— 重装后手动删掉它即可：
+
+```bash
+rm -rf ~/.claude/skills/taobao-ops-playbook          # Claude Code
+rm -rf ~/.minimax/.minimax/skills/taobao-ops-playbook # MiniMax Code
+```
+
+（Windows 上把 `~` 换成你的用户目录；不确定装在哪就先用 `python scripts/install_skills.py --list-hosts` 看 ★ 标记。）
 
 **Q：Claude Code 装插件后说找不到技能？**
 A：多半是用 URL 直链加的市场。要用 Git 方式：`/plugin marketplace add kizemo/skill-ecommercial`。

@@ -1,4 +1,4 @@
-# 术语表 · taobao-ops-playbook
+# 术语表 · skill-ecommercial
 
 > 每条标注来源笔记。定义取知识库原文口径。
 

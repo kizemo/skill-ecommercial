@@ -209,4 +209,4 @@
 
 ## 相关技能
 
-[[wanxiangtai-wujie]]｜[[store-diagnosis]]｜[[profit-model]]｜[[customer-asset-ops]]｜[[hit-product-lifecycle]]｜[[keyword-promo]]｜[[data-metrics]]｜[[daily-store-patrol]]｜[[taobao-ops-playbook]]
+[[wanxiangtai-wujie]]｜[[store-diagnosis]]｜[[profit-model]]｜[[customer-asset-ops]]｜[[hit-product-lifecycle]]｜[[keyword-promo]]｜[[data-metrics]]｜[[daily-store-patrol]]｜[[skill-ecommercial]]

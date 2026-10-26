@@ -143,4 +143,4 @@
 - 竞品截流与品牌攻防细节 → [ch04-jingpin-jieliu.md](ch04-jingpin-jieliu.md)
 - 拉新/收割预算与人群监控 → [[wanxiangtai-wujie]]
 - 阶段判断（成长期 / 爆款期）→ [[hit-product-lifecycle]]
-- 全局公式与阈值 → [[taobao-ops-playbook]]
+- 全局公式与阈值 → [[skill-ecommercial]]

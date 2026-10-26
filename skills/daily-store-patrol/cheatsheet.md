@@ -46,7 +46,7 @@
 | 店铺体验分 | **< 4.6** → 失搜索权重 + 无法报名大促 | `compliance-medical` |
 | 商品 PXI | **< 70** 流量负向｜**< 60** 彻底断流 | `compliance-medical` |
 | 大促退款率 | 目标 **< 5%** | `campaign-playbook` |
-| 放量幅度 | 每次 **≤ 50%** | `taobao-ops-playbook` |
+| 放量幅度 | 每次 **≤ 50%** | `skill-ecommercial` |
 | 间接 ÷ 直接成交 | **≥ 2 倍** → 投放完全无效 | `store-diagnosis` |
 | 领先率（新客成交占比） | ≥80% 合格｜70-80% 可接受｜50-70% 浪费在收割｜<50% 跑收割｜<30% 拉新断 | `store-diagnosis` |
 | 蓄水 KPI | O+A **> 200w**｜O→A **> 15%** | `campaign-playbook` |

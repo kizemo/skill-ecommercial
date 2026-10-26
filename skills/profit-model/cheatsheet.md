@@ -179,7 +179,7 @@ LTV           = 平均客单价 × 平均购买次数 × 平均生命周期
 
 ## 11. 相关 skill
 
-- [[taobao-ops-playbook]] — 全链路总纲、15 条公式、四大金刚
+- [[skill-ecommercial]] — 全链路总纲、15 条公式、四大金刚
 - [[sabc-product-tiering]] — 货盘分级、预算占比、停投后落到哪一级
 - [[store-diagnosis]] — 领先率四档、四层分析法、归因切换
 - [[wanxiangtai-wujie]] — 全域投放、成交机会公式

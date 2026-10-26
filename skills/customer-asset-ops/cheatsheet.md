@@ -162,4 +162,4 @@
 | 定向/归因口径诊断 | [[store-diagnosis]] |
 | 人群包与计划搭建 | [[wanxiangtai-wujie]] |
 | 召回与复购算账、LTV | [[profit-model]] |
-| 全局定位与核心公式 | [[taobao-ops-playbook]] |
+| 全局定位与核心公式 | [[skill-ecommercial]] |

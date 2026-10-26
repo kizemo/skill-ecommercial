@@ -213,4 +213,4 @@
 5. 预算每次调整 ≤30%，优先调单品而不是整个系列。
 6. 新功能先用 30-50 元最低预算测，红利期短暂但盲目上量更贵。
 7. 推广的问题要在单品中找答案（[[store-diagnosis]]）。
-8. 算账、盈亏平衡、投产去伪见 [[profit-model]]；全局公式与路由见 [[taobao-ops-playbook]]；链接阶段判定见 [[hit-product-lifecycle]]。
+8. 算账、盈亏平衡、投产去伪见 [[profit-model]]；全局公式与路由见 [[skill-ecommercial]]；链接阶段判定见 [[hit-product-lifecycle]]。

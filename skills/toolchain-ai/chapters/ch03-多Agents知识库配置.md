@@ -114,7 +114,7 @@
 |---|---|
 | 每个 Agent 一个 Obsidian vault | 一个知识库 → **18 个按角色划分的 skill** |
 | 靠目录隔离职责 | 靠 **skill 的 description 触发** + 交叉引用 |
-| 共享区 `public/` 放通用规范 | `taobao-ops-playbook` 承担总纲与路由 |
+| 共享区 `public/` 放通用规范 | `skill-ecommercial` 承担总纲与路由 |
 | 人肉维护目录结构 | `scripts/validate_skills.py` 自动校验结构与质量门禁 |
 
 **为什么轻量化更实用**：18 个 Agent + 12 个 vault 的维护成本很高，而 skill 是**纯文本、可版本控制、可被任何宿主加载**的。

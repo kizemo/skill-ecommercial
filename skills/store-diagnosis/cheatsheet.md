@@ -121,4 +121,4 @@
 | 计划组合、预算重排 | [[wanxiangtai-wujie]] |
 | 人群不准、拉新链路断 | [[customer-asset-ops]] |
 | 投产去伪、算账、斩杀线 | [[profit-model]] |
-| 全局定位、核心公式 | [[taobao-ops-playbook]] |
+| 全局定位、核心公式 | [[skill-ecommercial]] |

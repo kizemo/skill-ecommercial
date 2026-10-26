@@ -173,4 +173,4 @@
 - 素材八大入口与搜推素材 SOP → [[visual-material]]
 - 关键词与商品参数填写 → [[conversion-optimization]]
 - 阶段判断 → [[hit-product-lifecycle]]
-- 全局流量结构与工具对比 → [[taobao-ops-playbook]]
+- 全局流量结构与工具对比 → [[skill-ecommercial]]

@@ -213,7 +213,7 @@ description: "淘系转化率与客单价优化。当出现有流量没成交、
 | 搜索有展现没点击 | [[keyword-promo]] |
 | 素材与搜推素材 | [[visual-material]] |
 | 评价与合规红线 | [[compliance-medical]] |
-| 全局公式与指标口径 | [[taobao-ops-playbook]] |
+| 全局公式与指标口径 | [[skill-ecommercial]] |
 
 ---
 

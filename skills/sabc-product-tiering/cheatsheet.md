@@ -173,7 +173,7 @@
 
 ## 13. 相关 skill
 
-- [[taobao-ops-playbook]] — 全链路总纲、15 条公式、四大金刚
+- [[skill-ecommercial]] — 全链路总纲、15 条公式、四大金刚
 - [[profit-model]] — 真实投产 / 盈亏平衡 ROI / 斩杀线 / 顺逆差
 - [[store-diagnosis]] — 领先率、直接/间接成交比、归因切换
 - [[hit-product-lifecycle]] — 爆款四阶段完整打法

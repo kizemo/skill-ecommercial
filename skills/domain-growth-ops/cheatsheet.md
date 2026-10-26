@@ -268,4 +268,4 @@ UV 价值    = 客单价 × 转化率
 
 ## 相关技能
 
-[[wanxiangtai-wujie]]｜[[store-diagnosis]]｜[[profit-model]]｜[[customer-asset-ops]]｜[[daily-store-patrol]]｜[[taobao-ops-playbook]]
+[[wanxiangtai-wujie]]｜[[store-diagnosis]]｜[[profit-model]]｜[[customer-asset-ops]]｜[[daily-store-patrol]]｜[[skill-ecommercial]]

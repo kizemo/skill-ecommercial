@@ -95,4 +95,4 @@
 - 主图点击率与测图 → [[keyword-promo]]
 - 跳失率、停留时长、退款率口径 → [[data-metrics]]
 - 8 维度考核（停留时长/跳失率） → [[profit-model]]、[[sabc-product-tiering]]
-- 全局指标与优先级 → [[taobao-ops-playbook]]
+- 全局指标与优先级 → [[skill-ecommercial]]

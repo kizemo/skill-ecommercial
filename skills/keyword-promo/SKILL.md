@@ -150,7 +150,7 @@ description: "淘系搜索流量体系搭建与优化。当需要做测图选品
 | 全店货盘与预算分配 | [[sabc-product-tiering]] |
 | 投产好看但单品在亏 | [[store-diagnosis]] |
 | 选品、测款怎么排 | [[selection-testing]] |
-| 全局公式与技能路由 | [[taobao-ops-playbook]] |
+| 全局公式与技能路由 | [[skill-ecommercial]] |
 
 ---
 

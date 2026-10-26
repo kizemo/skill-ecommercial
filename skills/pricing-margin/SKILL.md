@@ -179,7 +179,7 @@ description: "淘宝/天猫商品定价、费比与活动价盘控制。当需�
 4. **算活动利润空间** → 用 `盈亏平衡投产比` 和 `真实投产` 复核，别只看成交额
 5. **算费比** → 对齐去年同期，低于同期直接补预算或降费比策略，否则消费券降级
 
-**配合使用**：`[[campaign-playbook]]`（报名与节奏）、`[[profit-model]]`（算账与投产去伪）、`[[sabc-product-tiering]]`（角色分配与预算）、`[[selection-testing]]`（测款与毛利空间评估）、`[[hit-product-lifecycle]]`（叠标与阶段定价）、`[[wanxiangtai-wujie]]`（费比与人群资产）、`[[taobao-ops-playbook]]`（总纲与公式索引）。
+**配合使用**：`[[campaign-playbook]]`（报名与节奏）、`[[profit-model]]`（算账与投产去伪）、`[[sabc-product-tiering]]`（角色分配与预算）、`[[selection-testing]]`（测款与毛利空间评估）、`[[hit-product-lifecycle]]`（叠标与阶段定价）、`[[wanxiangtai-wujie]]`（费比与人群资产）、`[[skill-ecommercial]]`（总纲与公式索引）。
 
 ---
 
