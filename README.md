@@ -4,7 +4,7 @@
 
 [![skills](https://img.shields.io/badge/skills-20-blue)](skills/)
 [![layer](https://img.shields.io/badge/layer-L0%E2%86%92L3-green)](docs/ROADMAP.md)
-[![chapters](https://img.shields.io/badge/chapters-96-lightgrey)](skills/)
+[![chapters](https://img.shields.io/badge/chapters-97-lightgrey)](skills/)
 [![source](https://img.shields.io/badge/source-taobao--operation-orange)](docs/SOURCE-NOTES.md)
 [![ci](https://github.com/kizemo/skill-ecommercial/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/kizemo/skill-ecommercial/actions/workflows/validate-skills.yml)
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
@@ -90,9 +90,16 @@
 - 红绿灯用**相对自身 7 日均值**判定，绝对红线单列（体验分 4.6、PXI 70/60、大促退款率 5%、放量 ≤50%）
 - 素材冲突时显式标注「口径冲突，需复核」，不私自选一个
 
-### 对数据侧：有一本是真能跑的
+### 对数据侧：有两本是真能跑的
 
-20 本里有两本不一样 —— [`daily-store-patrol`](skills/daily-store-patrol/) **直连 PostgreSQL**，把 ERP 每日订单/成本/推广费用 与 店铺侧流量/客户资产/万相台推广 接成一条每日巡店流水线，附可运行脚本；[`domain-growth-ops`](skills/domain-growth-ops/) 把智篆商业·老草老师的全域增长方法论（含**推广红绿灯**）编译成决策层手册。
+20 本里有两本不一样 —— [`daily-store-patrol`](skills/daily-store-patrol/) **直连 PostgreSQL**，把 ERP 每日订单/成本/推广费用 与 店铺侧流量/客户资产/万相台推广 接成一条每日巡店流水线，附可运行脚本；[`domain-growth-ops`](skills/domain-growth-ops/) 把智篆商业·老草老师的全域增长方法论（含**推广红绿灯**）编译成决策层手册，并附**推广红绿灯报表生成脚本**（商品/系列级走 Excel 通道、店铺/计划级走 PG 通道，输出 Markdown + CSV + Excel 活公式）。
+
+`domain-growth-ops` 的报表脚本已用真实模板（智篆老草《推广红绿灯》V3）与本机 PG 实测跑通，11 项指标口径逐格反推吻合、大盘与明细合计差额逐列对得上：
+
+```
+$ python skills/domain-growth-ops/scripts/red_green_report.py --self-test
+✅ 自检通过：口径、红绿灯边界、双轨取严、大盘识别、坏数据鲁棒性共 45 项断言全部成立
+```
 
 对 7 家淘宝店实测跑通，输出红绿灯表、问题清单、机会清单、今日行动项：
 
@@ -295,6 +302,7 @@ cp -r skill-ecommercial/skills/* ~/.claude/skills/
 | 钱花在哪没生效 | `store-diagnosis` |
 | 计划怎么搭、预算怎么加减 | `wanxiangtai-wujie` |
 | 费比红线、推广红绿灯、该给谁加钱该停谁 | `domain-growth-ops` |
+| **要一份推广红绿灯报表 / 目标该定多少** | `domain-growth-ops` ch09 + 报表脚本 |
 | 搜索没点击、排名被抢 | `keyword-promo` |
 | 有流量没成交、主图/详情页要改 | `conversion-optimization` |
 | 定价、活动空间、最低价 | `pricing-margin` |
@@ -341,7 +349,7 @@ cp -r skill-ecommercial/skills/* ~/.claude/skills/
 | [`customer-asset-ops`](skills/customer-asset-ops/) | 人群资产运营：AIPL/O-AIPL/RFM、召回与复购 |
 | [`profit-model`](skills/profit-model/) | 盈利体系与算账：盈亏平衡 ROI、斩杀线、顺逆差、投产去伪 |
 | [`daily-store-patrol`](skills/daily-store-patrol/) | **每日巡店（数据驱动）**：连 PG 库逐日体检全店 —— 红绿灯表、异动规则库 28 条、重点商品/计划名单、**可直接跑的巡店脚本** |
-| [`domain-growth-ops`](skills/domain-growth-ops/) | **全域增长操盘（决策层）**：智篆商业·老草方法论 —— 推广红绿灯两轴三色与四场景、费比三口径与系列化核算、人群资产分层、系列看板赛马、Gap 公式、左侧拉新两步验证 |
+| [`domain-growth-ops`](skills/domain-growth-ops/) | **全域增长操盘（决策层）**：智篆商业·老草方法论 —— 推广红绿灯两轴三色与四场景、**推广目标双轨取严与红绿灯报表生成（附可运行脚本）**、费比三口径与系列化核算、人群资产分层、系列看板赛马、Gap 公式、左侧拉新两步验证 |
 
 ### L2 · 域层（9 · 单业务域专项）
 
@@ -536,7 +544,7 @@ A：多半是用 URL 直链加的市场。要用 Git 方式：`/plugin marketpla
 A：符号链接需要管理员权限。加 `--copy`（skills CLI）或用默认的复制模式（仓库脚本）。
 
 **Q：我没有 PostgreSQL，能用吗？**
-A：能。20 本里只有 `daily-store-patrol` 需要数据库，其余 19 本是纯方法论。
+A：能。20 本里只有 `daily-store-patrol` 需要数据库（`domain-growth-ops` 的报表脚本**可选**连库，不给库参数就走 Excel 通道），其余都是纯方法论。
 
 **Q：能只装其中几本吗？**
 A：能。`npx skills add <repo> -s 'daily-store-patrol,store-diagnosis'`，或用仓库脚本的 `--only`。
