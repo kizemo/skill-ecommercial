@@ -4,7 +4,7 @@
 
 [![skills](https://img.shields.io/badge/skills-20-blue)](skills/)
 [![layer](https://img.shields.io/badge/layer-L0%E2%86%92L3-green)](docs/ROADMAP.md)
-[![chapters](https://img.shields.io/badge/chapters-95-lightgrey)](skills/)
+[![chapters](https://img.shields.io/badge/chapters-96-lightgrey)](skills/)
 [![source](https://img.shields.io/badge/source-taobao--operation-orange)](docs/SOURCE-NOTES.md)
 [![ci](https://github.com/kizemo/skill-ecommercial/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/kizemo/skill-ecommercial/actions/workflows/validate-skills.yml)
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
@@ -149,10 +149,13 @@
 | **老草测款方法** | `selection-testing` ch04 | 相同流量环境、半个月看转化、500 块两条退路、共鸣词包、点击单价进攻 |
 | **双11 备战 2026** | `campaign-playbook` ch06 | 资产召回三类、10/15-11/14 节奏窗口、一品多链、SKU 级独立展示、规避系统比价、AI 视觉升级 |
 | **双11 官方落地** | `campaign-playbook` ch07 | 活动准备四步曲、先涨后降价格管控、红线价、达摩盘双11 活动（**2024/2025 口径**） |
+| **双11 招商规则 2026** | `campaign-playbook` ch08 | **当年官方口径**：报名与节奏时间表、官方立减玩法、价格管控、服务规则、活动会场（**平台规则页 + 多源转述**） |
 
-同时：`domain-growth-ops` 速查表补齐了 ch08 的预算配比与边际拐点阈值；仓库门禁维持 **20 skill / 0 error / 0 warn**，CI 每次 push 自动跑。
+同时：`domain-growth-ops` 的 ch08 速查表补齐了预算配比与边际拐点阈值；仓库门禁维持 **20 skill / 0 error / 0 warn**，CI 每次 push 自动跑。
 
-> 这三个章节的原始素材**本来就在** `taobao-operation` 知识库里，此前未被使用 —— 所以本库是持续从源库编译的，不是一次性快照。
+> 这几个章节的原始素材**本来就在** `taobao-operation` 知识库里，此前未被使用 —— 所以本库是持续从源库编译的，不是一次性快照。
+>
+> ⚠️ **唯一例外是 `campaign-playbook` ch08**：2026 官方招商规则**不在知识库里**（库内只有「2024 年双11 活动专区」与「2025 双11 大促专题」两个官方专区），这一章取自**平台官方规则页 + 多家媒体转述**，是本库唯一新增的来源层；未验证项已在章内逐条标注。
 
 ---
 
@@ -297,6 +300,7 @@ cp -r skill-ecommercial/skills/* ~/.claude/skills/
 | 定价、活动空间、最低价 | `pricing-margin` |
 | 大促节奏、蓄水、价盘 | `campaign-playbook` |
 | 双11 备盘、链接矩阵、资产召回 | `campaign-playbook` |
+| 双11 报名什么时候截止、官方立减怎么设 | `campaign-playbook`（ch08，2026 当年官方口径） |
 | 新品测不出结果、测款没转化、要不要放弃 | `selection-testing` |
 | 指标口径、老板要什么数 | `data-metrics` |
 | 人群分层、召回、复购 | `customer-asset-ops` |
@@ -347,7 +351,7 @@ cp -r skill-ecommercial/skills/* ~/.claude/skills/
 | [`keyword-promo`](skills/keyword-promo/) | 关键词与搜索推广：十三式战法、大词/精准词/长尾词分层、竞品截流 |
 | [`conversion-optimization`](skills/conversion-optimization/) | 转化与客单：决策链路优先级、SKU 五要素、FABE 主图、买家秀五法 |
 | [`pricing-margin`](skills/pricing-margin/) | 定价与费比：科学定价、预留空间公式、最低价管控、费比核算 |
-| [`campaign-playbook`](skills/campaign-playbook/) | 大促作战：六大 S 级大促节奏、报名四要点、蓄水与付费节奏、价盘管控、**双11 备战 2026**（资产召回 / 一品多链 / SKU 独立展示） |
+| [`campaign-playbook`](skills/campaign-playbook/) | 大促作战：六大 S 级大促节奏、报名四要点、蓄水与付费节奏、价盘管控、**双11 三层口径**（2026 备战方法论 / 2024-2025 官方走查 / **2026 官方规则与时间表**） |
 | [`data-metrics`](skills/data-metrics/) | 指标口径与考核维度：四大金刚、8 维度考核、建模路线 |
 | [`visual-material`](skills/visual-material/) | 视觉与素材：素材革命八大入口、每周素材 SOP、主图裂变、AI 主图四法 |
 | [`toolchain-ai`](skills/toolchain-ai/) | 工具链与 AI 提效：千牛 AI/生意管家三层架构、1 店长+6 数字员工、智能体与多 Agent 配置 |
@@ -496,12 +500,13 @@ python scripts/verify_install.py
 - **医疗器械相关内容仅适用于医疗器械类目**（`compliance-medical`）
 - **ERP 商品编码 ↔ 万相台宝贝ID 两套编码尚未对齐**，潜力品识别只能人工映射，已在技能中标注「未验证」
 - 阈值是 2026 上半年快照，**落地前核对当期平台公告**
-- **大促规则按年份标注**：方法论章（`campaign-playbook` ch06，双11 备战 2026）是 2026 口径；官方报名与价格管控章（ch07）是 **2024/2025 口径**，日期与阈值需回千牛后台当期公告核对
+- **大促规则按年份标注，分三层**：`campaign-playbook` ch06 = 2026 备战方法论（少壮讲义）｜ch07 = **2024/2025 官方走查**（动作骨架，日期全部失效）｜ch08 = **2026 当年官方规则**（报名与节奏时间表可直接用）
+- ⚠️ **ch08 是本库唯一的新来源层**：内容取自**平台官方规则页 + 多家媒体转述**，不是知识库原文。媒体转述之间逐项一致，但**类目让利档位表、2026 价格校验期与涨幅阈值未验证**，落地前回千牛后台核对
 
 **后续可补**（按优先级）
 
 1. **40-转化与客单模块补强** —— 该模块仅 4 篇、3 篇尚未覆盖，`conversion-optimization` 是当前最薄的一本
-2. **2026 双11 官方规则入库** —— 现有官方规则是 2024/2025 快照，当年的招商公告需要从平台侧补
+2. **2026 官方规则的类目档位与校验期阈值** —— ch08 已补齐时间表与玩法，但**让利档位表**与**价格校验期/涨幅阈值**仍需从千牛后台导出官方原文后入库
 3. **医疗器械四品类打法** —— 家用 / 中医器械 / 医用敷料 / 器械电商，库内均为概念 stub
 4. **关键词十三式后 8 式** —— 素材只完整提取到第 5 式，后 8 式无可引用正文
 5. **618 项目级复盘闭环 / 新店启动项目** —— 三个项目目录仍是 Phase 4 stub
@@ -557,7 +562,10 @@ python scripts/verify_install.py minimax # 只查 MiniMax Code
 它会逐文件比对 **SHA256**（不只是文件名），所以"仓库更新了但没重装"这种**旧版内容残留**也能被抓出来。
 
 **Q：双11 那本里的报名截止时间是 2026 的吗？**
-A：分两章看 —— **ch06 是 2026 口径**（方法论：资产召回、一品多链、10/15-11/14 窗口）；**ch07 是 2024/2025 官方口径**（报名截止、先涨后降阈值、达摩盘活动）。官方规则**按年发布**，ch07 的日期不能直接用，落地前回千牛后台当期公告核对。
+A：分三层看 —— **ch06 是 2026 方法论**（资产召回、一品多链、10/15-11/14 窗口）；**ch07 是 2024/2025 官方走查**（报名四步曲、先涨后降阈值、达摩盘活动 —— **动作骨架，日期全部失效**）；**ch08 是 2026 当年官方规则**（报名 09-21 起、预售报名 **10/15 19:59** 截止、现货报名 **10/19 23:59** 截止、现货售卖 **10/20 20:00 – 11/13 23:59**）。⚠️ ch08 的**类目让利档位表**与**价格校验期/涨幅阈值**仍未验证，落地前回千牛后台核对。
+
+**Q：双11 的「报名」到底按哪个时间？**
+A：最容易错的一格 —— 2025 是「**店铺报名**」（天猫 10/20 0 时、淘宝 11/1 0 时），2026 改成「**商品报名**」分**预售/现货两段**。拿 2025 的 10/20 去卡 2026 的商品报名会**晚 5 天**。另外**天猫是预售+现货双线，淘宝只有现货一条线**。
 
 ---
 
