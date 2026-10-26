@@ -46,3 +46,6 @@ jobs:
               print("\n".join(bad)); sys.exit(1)
           print("frontmatter ok")
           PY
+
+      - name: Docs backup is in sync with skills/
+        run: python scripts/verify_docs_backup.py

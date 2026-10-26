@@ -1,0 +1,16 @@
+{"task_id": "othe-001", "task": "Summarize what this skill does.", "judge": {"kind": "rule", "checks": [{"op": "max_chars", "arg": 1500}, {"op": "min_citations", "arg": 1}]}}
+{"task_id": "othe-002", "task": "Why would someone invoke it?", "judge": {"kind": "rule", "checks": [{"op": "max_chars", "arg": 1500}, {"op": "min_citations", "arg": 1}]}}
+{"task_id": "othe-003", "task": "What's the next thing the skill does after that?", "judge": {"kind": "rule", "checks": [{"op": "max_chars", "arg": 1500}, {"op": "min_citations", "arg": 1}]}}
+{"task_id": "othe-004", "task": "Summarize what this skill does.", "judge": {"kind": "rule", "checks": [{"op": "max_chars", "arg": 1500}, {"op": "min_citations", "arg": 1}]}}
+{"task_id": "othe-005", "task": "Why would someone invoke it?", "judge": {"kind": "rule", "checks": [{"op": "max_chars", "arg": 1500}, {"op": "min_citations", "arg": 1}]}}
+{"task_id": "othe-006", "task": "What's the next thing the skill does after that?", "judge": {"kind": "rule", "checks": [{"op": "max_chars", "arg": 1500}, {"op": "min_citations", "arg": 1}]}}
+{"task_id": "othe-007", "task": "Summarize what this skill does.", "judge": {"kind": "rule", "checks": [{"op": "max_chars", "arg": 1500}, {"op": "min_citations", "arg": 1}]}}
+{"task_id": "othe-008", "task": "Why would someone invoke it?", "judge": {"kind": "rule", "checks": [{"op": "max_chars", "arg": 1500}, {"op": "min_citations", "arg": 1}]}}
+{"task_id": "othe-009", "task": "What's the next thing the skill does after that?", "judge": {"kind": "rule", "checks": [{"op": "max_chars", "arg": 1500}, {"op": "min_citations", "arg": 1}]}}
+{"task_id": "othe-010", "task": "Summarize what this skill does.", "judge": {"kind": "rule", "checks": [{"op": "max_chars", "arg": 1500}, {"op": "min_citations", "arg": 1}]}}
+{"task_id": "othe-011", "task": "Why would someone invoke it?", "judge": {"kind": "rule", "checks": [{"op": "max_chars", "arg": 1500}, {"op": "min_citations", "arg": 1}]}}
+{"task_id": "othe-012", "task": "What's the next thing the skill does after that?", "judge": {"kind": "rule", "checks": [{"op": "max_chars", "arg": 1500}, {"op": "min_citations", "arg": 1}]}}
+{"task_id": "othe-013", "task": "Summarize what this skill does.", "judge": {"kind": "rule", "checks": [{"op": "max_chars", "arg": 1500}, {"op": "min_citations", "arg": 1}]}}
+{"task_id": "othe-014", "task": "Why would someone invoke it?", "judge": {"kind": "rule", "checks": [{"op": "max_chars", "arg": 1500}, {"op": "min_citations", "arg": 1}]}}
+{"task_id": "othe-015", "task": "What's the next thing the skill does after that?", "judge": {"kind": "rule", "checks": [{"op": "max_chars", "arg": 1500}, {"op": "min_citations", "arg": 1}]}}
+# BOOTSTRAP_PENDING_REVIEW

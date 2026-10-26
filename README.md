@@ -7,9 +7,14 @@
 [![chapters](https://img.shields.io/badge/chapters-97-lightgrey)](skills/)
 [![source](https://img.shields.io/badge/source-taobao--operation-orange)](docs/SOURCE-NOTES.md)
 [![ci](https://github.com/kizemo/skill-ecommercial/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/kizemo/skill-ecommercial/actions/workflows/validate-skills.yml)
+[![audit](https://img.shields.io/badge/skill--forge%20audit-passed-brightgreen)](docs/skill-forge/audit-report.md)
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 **[快速开始](#快速开始)** · **[安装](#安装)** · **[怎么用](#怎么用)** · **[技能清单](#技能清单)** · **[安装指南](docs/安装指南.md)** · **[使用说明书](docs/使用说明书.md)**
+
+> ⭐ **如果这套技能帮你省过一次翻半小时笔记的功夫，给个 Star。** 这是最有效的推广。
+> 🐛 遇到口径对不上、阈值过时、某个链接死了 —— 直接提 [Issue](https://github.com/kizemo/skill-ecommercial/issues)，别自己改完就装。
+> 💬 想讨论方法论、加一本新技能、开源扩展 → [Discussions](https://github.com/kizemo/skill-ecommercial/discussions)。
 
 ---
 
@@ -124,6 +129,7 @@ $ python skills/domain-growth-ops/scripts/red_green_report.py --self-test
 - ✅ **统一目录结构** —— 每本都是 `SKILL.md` + `chapters/` + `glossary.md` + `patterns.md` + `cheatsheet.md`，机器可校验
 - ✅ **可运行脚本** —— 巡店脚本对 7 店实测跑通，口令走环境变量，不入库
 - ✅ **自动质量门禁** —— 结构 / frontmatter / token 预算 / 占位符 / 交叉引用 / 决策性内容，10 项检查，CI 每次提交跑
+- ✅ **入口技能接受过 skill-forge 审计** —— 三裁判结论、两套 token 口径、完整 diff、**逐条归因**（工具建议 × 仓库规范各取哪一条）、**坏数据对照**，全部公开可复核
 - ✅ **跨宿主通用** —— Anthropic Agent Skills 开放格式，Claude Code / cc-haha / MiniMax Code / Cursor / Codex 都能装
 - ✅ **4 种安装方式** —— 官方 skills CLI、仓库脚本、Claude Code 插件市场、手动拷贝
 - ✅ **数字纪律** —— 阈值必须来自知识库原文或数据库实测，缺失标注「未验证」，冲突标注「口径冲突，需复核」
@@ -131,6 +137,35 @@ $ python skills/domain-growth-ops/scripts/red_green_report.py --self-test
 ---
 
 ## 最近更新
+
+### 2026-10-26 · L0 入口按 skill-forge 审计重写 + 文档备份上线
+
+`skill-ecommercial`（L0 总纲）跑了一遍 [skill-forge](docs/skill-forge/audit-report.md) 六阶段审计，按审计结论重写了入口正文。
+
+| 改动 | 前 | 后 |
+|---|---|---|
+| **`description`** | 「自我介绍式」+ 19 个关键词（230 字符） | **路由触发器**（`Use when …` + 6 个关键词，102 字符） |
+| **index 档成本** | 214 tok（**2.1× 预算**） | **100 tok**（预算内）—— 这一档**每个会话都在付**，20 本一起装就是白拿 2280 tok/会话 |
+| **铁律** | 无 | 一行覆盖式铁律：先定位环节 → 再取公式阈值 → 最后才谈动作 |
+| **何时用 / 何时不用** | 散在结尾 | 独立小节，5 条「不用」各自给了去处 |
+| **路由流程** | 无 | 五步（定位 / 取数 / 取阈 / 选路 / 执行），每步带落点 |
+| **误区与红线** | 无 | 4 条常见推托 + 5 条「发现即停」 |
+| **输出格式** | 无 | 四行固定交付格式 |
+| **验收清单** | 无 | 6 条自查项，与仓库门禁同口径 |
+| **读文件条件** | 平铺的文件清单 | 「文件 / 什么时候读 / 不读会怎样」表（渐进式披露） |
+
+**本轮没有增删任何一个阈值数字**，`chapters/`、三件套与另外 19 本技能逐字节未动。
+
+审计留痕全部公开可复核：[`docs/skill-forge/`](docs/skill-forge/)（三裁判结论含**未跑成的那一格**、两套 token 口径、完整 diff、逐条归因、规则化 spot check 的**坏数据对照**）。
+
+> ⚠️ 诚实标注：skill-forge 的 **LLM rubric 裁判在本机没有可用通道，跳过了**（按 RULING-1 记 skipped ≠ 失败）。
+> 第三格 spot check 是本轮自写的规则化检查器，已用**故意做坏的副本**验过它逐条报得出（6/15）。
+> **「意图是否真的更好」目前没有独立模型背书** —— 详见 [audit-report.md](docs/skill-forge/audit-report.md) 第一节。
+
+同时上线两处新文档：
+
+- **[`docs/技能备份/`](docs/技能备份/)** —— 20 本技能**入口正文的可读副本**，不装技能也能在网页上直接翻；由 `scripts/verify_docs_backup.py` 逐字节校验，漂移即 CI 失败。
+- **[`docs/skill-forge/`](docs/skill-forge/)** —— 本次审计的完整留痕。
 
 ### 2026-10-25 · 入口统一为 `skill-ecommercial`
 
@@ -402,6 +437,10 @@ description: "淘宝/天猫店铺每日巡店：……关键词：每日巡店�
 ---
 ```
 
+`description` 写**单行**，内容是「什么时候用 + 覆盖什么 + 触发关键词」——它就是宿主匹配技能的索引。
+L0 入口 `skill-ecommercial` 额外用 `Use when` 起头（给 resolver 的机器可读信号），后面照旧是中文关键词子句；
+审计过程见 [`docs/skill-forge/`](docs/skill-forge/)。
+
 ---
 
 ## 数据来源与可信度
@@ -430,15 +469,18 @@ skill-ecommercial/
 ├── scripts/
 │   ├── validate_skills.py     # 质量门禁：10 项检查
 │   ├── install_skills.py      # 安装脚本：自动识别宿主目录
-│   └── verify_install.py      # 安装验收：逐文件 SHA256 比对仓库与宿主
+│   ├── verify_install.py      # 安装验收：逐文件 SHA256 比对仓库与宿主
+│   └── verify_docs_backup.py  # 文档备份校验：docs/技能备份/ 与 skills/ 逐字节一致
 ├── docs/
 │   ├── 安装指南.md            # 装到哪、怎么装、怎么调、常见问题
 │   ├── 使用说明书.md          # 面向使用者的非技术说明
 │   ├── 技能地图.html          # 可视化技能地图
+│   ├── 技能备份/              # 20 本技能入口正文的可读副本（副本，非权威版）
+│   ├── skill-forge/           # skill-forge 审计留痕（判据 / diff / 逐条归因）
 │   ├── ROADMAP.md             # 四层架构与制作批次
 │   └── SOURCE-NOTES.md        # 来源与可信度
 ├── .claude-plugin/            # Claude Code 插件市场清单
-├── .github/workflows/         # CI：每次提交跑质量门禁
+├── .github/workflows/         # CI：每次提交跑质量门禁 + 备份漂移校验
 └── LICENSE                    # MIT
 ```
 
@@ -471,6 +513,21 @@ python scripts/verify_install.py
 # ✅ 验收通过：2 个宿主、20 本技能，文件与仓库一致、frontmatter 均为 name+description
 ```
 
+**文档备份也要验** —— `docs/技能备份/` 是 20 本技能入口正文的可读副本，副本会过期，所以同样有门禁：
+
+```bash
+python scripts/verify_docs_backup.py
+# 备份校验通过：20 本技能入口正文与 skills/ 逐字节一致。
+```
+
+改了 `skills/` 之后重新生成：
+
+```bash
+python scripts/verify_docs_backup.py --write
+```
+
+**这套技能自己也接受审计** —— L0 入口跑过 [skill-forge](docs/skill-forge/audit-report.md) 六阶段审计，判据、完整 diff、逐条归因、以及**坏数据对照**全部公开在 [`docs/skill-forge/`](docs/skill-forge/)，包括**没跑成的裁判**。
+
 ---
 
 ## 文档索引
@@ -480,6 +537,8 @@ python scripts/verify_install.py
 | [`docs/安装指南.md`](docs/安装指南.md) | 要装的人 —— 各宿主目录、4 种安装方式、5 种调用方式、常见问题 |
 | [`docs/使用说明书.md`](docs/使用说明书.md) | 要用的人 —— 非技术语言的分工说明、症状速查表、一分钟速查 |
 | [`docs/技能地图.html`](docs/技能地图.html) | 想知道全貌的人 —— 可视化四层架构（浏览器直接打开） |
+| [`docs/技能备份/`](docs/技能备份/) | 只想看不想装的人 —— 20 本技能入口正文的网页可读副本 |
+| [`docs/skill-forge/`](docs/skill-forge/) | 关心质量的人 —— 入口技能的审计报告、判据、完整 diff、逐条归因 |
 | [`docs/ROADMAP.md`](docs/ROADMAP.md) | 关心设计的人 —— 四层架构、20 本的完整规划、制作批次、已知缺口 |
 | [`docs/SOURCE-NOTES.md`](docs/SOURCE-NOTES.md) | 关心可信度的人 —— 来源、纪律、验证记录 |
 
@@ -569,6 +628,22 @@ python scripts/verify_install.py minimax # 只查 MiniMax Code
 
 它会逐文件比对 **SHA256**（不只是文件名），所以"仓库更新了但没重装"这种**旧版内容残留**也能被抓出来。
 
+**Q：`docs/技能备份/` 是什么？我能直接改里面的文件吗？**
+
+A：那是 20 本技能**入口正文（`SKILL.md`）的可读副本**，给不想 clone、不想装宿主、只想在网页上翻的人看。
+**改它没用** —— 下次同步会被覆盖。**权威版在 [`skills/`](skills/)**，要改就改那边，改完跑：
+
+```bash
+python scripts/verify_docs_backup.py --write   # 重新生成
+python scripts/verify_docs_backup.py           # 只校验（CI 跑这个）
+```
+
+**Q：这套技能自己被审计过吗？**
+
+A：L0 入口 `skill-ecommercial` 跑过 [skill-forge](docs/skill-forge/audit-report.md) 六阶段审计。
+审计留痕全公开，包括**没跑成的那一格裁判**（LLM rubric 因本机无裁判通道而 skipped）和**坏数据对照**
+（自写的 spot check 器在故意做坏的副本上只过 6/15，逐条报得出）。详见 [`docs/skill-forge/`](docs/skill-forge/)。
+
 **Q：双11 那本里的报名截止时间是 2026 的吗？**
 A：分三层看 —— **ch06 是 2026 方法论**（资产召回、一品多链、10/15-11/14 窗口）；**ch07 是 2024/2025 官方走查**（报名四步曲、先涨后降阈值、达摩盘活动 —— **动作骨架，日期全部失效**）；**ch08 是 2026 当年官方规则**（报名 09-21 起、预售报名 **10/15 19:59** 截止、现货报名 **10/19 23:59** 截止、现货售卖 **10/20 20:00 – 11/13 23:59**）。⚠️ ch08 的**类目让利档位表**与**价格校验期/涨幅阈值**仍未验证，落地前回千牛后台核对。
 
@@ -586,13 +661,21 @@ A：最容易错的一格 —— 2025 是「**店铺报名**」（天猫 10/20 0
 3. `description` 写成「什么时候用 + 覆盖什么 + 触发关键词」的单行
 4. 重要内容前置，控制在 4000 tokens 内
 5. 跑 `python scripts/validate_skills.py --root .` 直到 0 error / 0 warn
-6. 提 PR
+6. 跑 `python scripts/verify_docs_backup.py --write` 同步 `docs/技能备份/`
+7. 提 PR
 
 **改内容**
 
 - 数字必须能追到来源（知识库原文或数据库实测）
 - 素材冲突标「口径冲突，需复核」，缺失标「未验证」
 - 交叉引用用 `[[skill-name]]`
+- 改完 `skills/` 记得跑 `python scripts/verify_docs_backup.py --write`，否则 CI 的备份漂移校验会红
+
+**想让入口技能更准**
+
+`skill-forge` 的审计留痕就是范例：[`docs/skill-forge/`](docs/skill-forge/) 里放了三裁判结论（含没跑成的那一格）、
+两套 token 口径、完整 diff、**逐条归因**（工具建议 × 仓库规范各取哪一条）和**坏数据对照**。
+「自己写的检查器必须造一份坏数据验它有牙」——本库对门禁脚本也是这么要求的。
 
 CI 会在每次 push 时跑门禁，不过门禁不会合。
 
